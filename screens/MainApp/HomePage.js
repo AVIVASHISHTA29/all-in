@@ -8,7 +8,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
-import ProductCollection from "../../components/productCollections";
+import ProductCollection from "../../components/ProductComponents/productCollections";
 
 import SearchBarComponent from "../../components/searchBar";
 

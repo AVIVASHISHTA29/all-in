@@ -3,7 +3,7 @@ import { useState } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { SearchBar } from "react-native-elements";
 import { FlatList } from "react-native-gesture-handler";
-import ProductStack from "../navigation/signupStack";
+// import ProductStack from "../../navigation/signupStack";
 
 export default function ProductCollection({ navigation }) {
   const openProduct = () => {
@@ -13,37 +13,37 @@ export default function ProductCollection({ navigation }) {
     {
       id: "1",
       title: "Product Title",
-      image: require("../assets/images/default.png"),
+      image: require("../../assets/images/default.png"),
     },
     {
       id: "2",
       title: "Product Title 2",
-      image: require("../assets/images/default.png"),
+      image: require("../../assets/images/default.png"),
     },
     {
       id: "3",
       title: "Product Title 3",
-      image: require("../assets/images/default.png"),
+      image: require("../../assets/images/default.png"),
     },
     {
       id: "4",
       title: "Product Title 4",
-      image: require("../assets/images/default.png"),
+      image: require("../../assets/images/default.png"),
     },
     {
       id: "5",
       title: "Product Title 5",
-      image: require("../assets/images/default.png"),
+      image: require("../../assets/images/default.png"),
     },
     {
       id: "6",
       title: "Product Title 6",
-      image: require("../assets/images/default.png"),
+      image: require("../../assets/images/default.png"),
     },
     {
       id: "7",
       title: "Product Title 7",
-      image: require("../assets/images/default.png"),
+      image: require("../../assets/images/default.png"),
     },
   ];
 
@@ -62,6 +62,7 @@ export default function ProductCollection({ navigation }) {
           >
             <View>
               <Image
+                resizeMode="contain"
                 source={item.image}
                 style={{
                   width: 100,

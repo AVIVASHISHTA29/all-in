@@ -8,28 +8,29 @@ export default function RightNavButtons() {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-        width: 80,
-        // height: 100,
+        width: 90,
         marginRight: 20,
-        // padding: 10,
       }}
     >
       <TouchableOpacity>
         <Image
+          resizeMode="contain"
           source={require("../assets/icons/TopBarIcons/saved.png")}
-          style={{ width: 17, height: 17 }}
+          style={{ width: 20, height: 20 }}
         />
       </TouchableOpacity>
       <TouchableOpacity>
         <Image
+          resizeMode="contain"
           source={require("../assets/icons/TopBarIcons/cart.png")}
-          style={{ width: 17, height: 17 }}
+          style={{ width: 20, height: 20 }}
         />
       </TouchableOpacity>
       <TouchableOpacity>
         <Image
+          resizeMode="contain"
           source={require("../assets/icons/TopBarIcons/person.png")}
-          style={{ width: 17, height: 17 }}
+          style={{ width: 20, height: 20 }}
         />
       </TouchableOpacity>
     </View>

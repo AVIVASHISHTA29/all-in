@@ -1,8 +1,8 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import RightNavButtons from "../components/rightNavButtons";
-import Chats from "../screens/MainApp/Chats";
 import HomePage from "../screens/MainApp/HomePage";
 import Profile from "../screens/MainApp/Profile";
+import Wishlist from "../screens/MainApp/Wishlist";
 import Search from "../screens/MainApp/Search";
 
 const Drawer = createDrawerNavigator();
@@ -35,7 +35,7 @@ const DrawerTab = () => {
       />
       <Drawer.Screen
         name="Wishlist"
-        component={Chats}
+        component={Wishlist}
         options={{
           headerRight: () => <RightNavButtons />,
         }}

@@ -10,6 +10,7 @@ export default function StartingScreen({ navigation }) {
         Connect <Text style={{ color: "#FE5679" }}>.</Text>
       </Text>
       <Image
+        resizeMode="contain"
         source={require("../assets/images/introLogo.png")}
         style={{ width: 400, height: 400, flex: 4 }}
       />
