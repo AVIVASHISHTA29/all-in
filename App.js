@@ -1,20 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import * as Font from "expo-font";
+import { useState } from "react";
+import AppLoading from "expo-app-loading";
+import StartingScreen from "./screens/StartingScreen";
+import SignUp1 from "./screens/SignUp/signup_1";
+import HomePage from "./screens/MainApp/HomePage";
+import { NavigationContainer } from "@react-navigation/native";
+import Tabs from "./navigation/tabs";
+import SignupStack from "./navigation/signupStack";
+import DrawerTab from "./navigation/drawer";
+const getFonts = () => {
+  return Font.loadAsync({
+    "Roboto-Regular": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
+    "Roboto-Black": require("./assets/fonts/Roboto/Roboto-Black.ttf"),
+    "Roboto-Bold": require("./assets/fonts/Roboto/Roboto-Bold.ttf"),
+  });
+};
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+  const [fontsLoaded, setFontsLoaded] = useState(false);
+
+  if (fontsLoaded) {
+    return (
+      <NavigationContainer>
+        <DrawerTab />
+      </NavigationContainer>
+      // <SignUp1 />
+    );
+  } else {
+    return (
+      <AppLoading
+        startAsync={getFonts}
+        onFinish={() => setFontsLoaded(true)}
+        onError={console.warn}
+      />
+      // <Text style={{ padding: 50 }}>hi</Text>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
