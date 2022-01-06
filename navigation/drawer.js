@@ -3,7 +3,8 @@ import RightNavButtons from "../components/rightNavButtons";
 import HomePage from "../screens/MainApp/HomePage";
 import Profile from "../screens/MainApp/Profile";
 import Wishlist from "../screens/MainApp/Wishlist";
-import Search from "../screens/MainApp/Search";
+import ProductPage from "../screens/ProductPages/productPage";
+import MyOrders from "../screens/MainApp/MyOrdersPage";
 
 const Drawer = createDrawerNavigator();
 
@@ -28,7 +29,7 @@ const DrawerTab = () => {
       />
       <Drawer.Screen
         name="My Orders"
-        component={Search}
+        component={MyOrders}
         options={{
           headerRight: () => <RightNavButtons />,
         }}
@@ -43,6 +44,13 @@ const DrawerTab = () => {
       <Drawer.Screen
         name="Profile"
         component={Profile}
+        options={{
+          headerRight: () => <RightNavButtons />,
+        }}
+      />
+      <Drawer.Screen
+        name="Product Page"
+        component={ProductPage}
         options={{
           headerRight: () => <RightNavButtons />,
         }}
