@@ -62,15 +62,14 @@ const styles = StyleSheet.create({
   btn: {
     padding: 7,
     backgroundColor: "#C4C4C4",
-    marginRight: 5,
+    marginRight: 10,
   },
   buttonView: {
     flexDirection: "row",
     justifyContent: "flex-end",
     alignItems: "center",
-    marginRight: 5,
     marginTop: 15,
-    // marginBottom: 15,
+    // marginBottom: 5,
   },
   price: {
     fontSize: 16,
@@ -90,7 +89,7 @@ const styles = StyleSheet.create({
   },
   productContainer: {
     flex: 0.5,
-    height: 160,
+    height: 175,
     marginHorizontal: 10,
     marginVertical: 10,
     backgroundColor: "#E0E0E0",
