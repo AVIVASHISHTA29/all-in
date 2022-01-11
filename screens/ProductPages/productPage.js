@@ -27,8 +27,8 @@ export default function ProductPage() {
         Keyboard.dismiss();
       }}
     >
-      <View style={styles.container}>
-        <ScrollView>
+      <ScrollView>
+        <View style={styles.container}>
           <Text style={styles.productHeading}>
             All-In Essentials Half Sleeves Tshirt
           </Text>
@@ -175,10 +175,9 @@ export default function ProductPage() {
                 View More
               </Text>
             </TouchableOpacity>
-            {/* <Button title="View More"></Button> */}
           </View>
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </TouchableWithoutFeedback>
   );
 }

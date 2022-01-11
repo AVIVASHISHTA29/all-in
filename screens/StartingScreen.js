@@ -1,17 +1,26 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useContext } from "react";
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Context } from "../components/globalContext/globalContext";
 
 export default function StartingScreen({ navigation }) {
+  const globalContext = useContext(Context);
+  const { isLoggedIn } = globalContext;
   const getStarted = () => {
-    navigation.push("Signup1");
+    navigation.push("SignUp1");
   };
   return (
-    <View style={styles.container}>
-      <Text style={styles.headingMain}>
-        Connect <Text style={{ color: "#FE5679" }}>.</Text>
-      </Text>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.headingMain}>All-In</Text>
       <Image
         resizeMode="contain"
-        source={require("../assets/images/introLogo.png")}
+        source={require("../assets/images/default.png")}
         style={{ width: 400, height: 400, flex: 4 }}
       />
       <View style={{ flex: 1, marginTop: 50 }}>
@@ -39,13 +48,14 @@ export default function StartingScreen({ navigation }) {
           </Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
+    padding: 30,
     color: "#000",
     flex: 1,
     textAlign: "center",

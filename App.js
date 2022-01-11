@@ -4,12 +4,14 @@ import * as Font from "expo-font";
 import { useState } from "react";
 import AppLoading from "expo-app-loading";
 import StartingScreen from "./screens/StartingScreen";
-import SignUp1 from "./screens/SignUp/signup_1";
+import SignUp1 from "./screens/SignUp/signUp";
 import HomePage from "./screens/MainApp/HomePage";
 import { NavigationContainer } from "@react-navigation/native";
 import Tabs from "./navigation/tabs";
 import SignupStack from "./navigation/signupStack";
 import DrawerTab from "./navigation/drawer";
+import { Provider } from "./components/globalContext/globalContext";
+import Navigator from "./navigation/signupStack";
 const getFonts = () => {
   return Font.loadAsync({
     "Roboto-Regular": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
@@ -23,9 +25,16 @@ export default function App() {
 
   if (fontsLoaded) {
     return (
-      <NavigationContainer>
-        <DrawerTab />
-      </NavigationContainer>
+      <Provider>
+        <View style={{ flex: 1 }}>
+          <NavigationContainer>
+            <Navigator />
+          </NavigationContainer>
+        </View>
+      </Provider>
+      // <NavigationContainer>
+      //   <DrawerTab />
+      // </NavigationContainer>
       // <SignUp1 />
     );
   } else {

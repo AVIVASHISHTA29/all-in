@@ -1,20 +1,41 @@
-// import { createStackNavigator } from "@react-navigation/stack";
-// import Ionicons from "react-native-vector-icons/Ionicons";
+import React, { useContext } from "react";
+import { createStackNavigator } from "@react-navigation/stack";
+import SignUp1 from "../screens/SignUp/signUp";
+import { Context } from "../components/globalContext/globalContext.js";
+import StartingScreen from "../screens/StartingScreen.js";
+import DrawerTab from "./drawer.js";
 
-// const Stack = createStackNavigator();
+const Stack = createStackNavigator();
 
-// function ProductStack() {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen
-//         name="ProductPage"
-//         component={ProductPage}
-//         options={{
-//           title: "Product Page",
-//         }}
-//       />
-//     </Stack.Navigator>
-//   );
-// }
+function Navigator(props) {
+  const globalContext = useContext(Context);
+  const { isLoggedIn, userObj } = globalContext;
 
-// export default ProductStack;
+  return (
+    <Stack.Navigator initialRouteName="StartingScreen">
+      {!isLoggedIn || !userObj ? (
+        <>
+          <Stack.Screen
+            name="StartingScreen"
+            component={StartingScreen}
+            options={{ headerShown: false }}
+          />
+          {/* <Stack.Screen name="StartingScreen" component={StartingScreen} /> */}
+          <Stack.Screen
+            name="SignUp1"
+            component={SignUp1}
+            options={{ headerShown: false }}
+          />
+        </>
+      ) : (
+        <Stack.Screen
+          name="DrawerTab"
+          component={DrawerTab}
+          options={{ headerShown: false }}
+        />
+      )}
+    </Stack.Navigator>
+  );
+}
+
+export default Navigator;
