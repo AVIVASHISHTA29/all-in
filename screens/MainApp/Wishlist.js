@@ -1,74 +1,18 @@
-import {
-  FlatList,
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { useState } from "react";
+import { myWishList, myRecommendations } from "../../data/data";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import ProductLongCard from "../../components/ProductComponents/productLongCard";
 import ProductSmallCard from "../../components/ProductComponents/productSmallCard";
 
 const Wishlist = ({ navigation }) => {
-  const productList = [
-    {
-      id: "1",
-      title: "Product Title",
-      price: "2200",
-      size: "M",
-      inStock: true,
-      image: require("../../assets/images/shirt.png"),
-    },
-    {
-      id: "2",
-      title: "Product Title 2",
-      price: "2500",
-      size: "M",
-      inStock: true,
-      image: require("../../assets/images/shoe.png"),
-    },
-    {
-      id: "3",
-      title: "Product Title 3",
-      price: "2200",
-      size: "Xl",
-      inStock: false,
-      image: require("../../assets/images/tank.png"),
-    },
-    {
-      id: "4",
-      title: "Product Title 4",
-      price: "2200",
-      size: "M",
-      inStock: true,
-      image: require("../../assets/images/shoe.png"),
-    },
-    {
-      id: "5",
-      title: "Product Title 5",
-      price: "2200",
-      size: "M",
-      inStock: false,
-      image: require("../../assets/images/shirt.png"),
-    },
-    {
-      id: "6",
-      title: "Product Title 6",
-      price: "2200",
-      size: "M",
-      inStock: true,
-      image: require("../../assets/images/tank.png"),
-    },
-    {
-      id: "7",
-      title: "Product Title 7",
-      price: "2200",
-      size: "Sm",
-      inStock: false,
-      image: require("../../assets/images/shirt.png"),
-    },
-  ];
+  const list = myWishList;
+  const [wishList, setWishList] = useState(list);
+
+  const deleteItemWish = (id) => {
+    setWishList((wishList) => {
+      return wishList.filter((item) => item.id != id);
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -78,15 +22,20 @@ const Wishlist = ({ navigation }) => {
           nestedScrollEnabled
           style={{ marginBottom: 20, flex: 1 }}
           keyExtractor={(item) => item.id}
-          data={productList}
+          data={wishList}
           renderItem={({ item }) => (
             <ProductLongCard
+              id={item.id}
               title={item.title}
               price={item.price}
               size={item.size}
               inStock={item.inStock}
               image={item.image}
+              rating={item.rating}
               navigation={navigation}
+              deleteItem={deleteItemWish}
+              showDeleteButton={true}
+              showAddToCartButton={true}
             />
           )}
         />
@@ -97,11 +46,16 @@ const Wishlist = ({ navigation }) => {
             horizontal={true}
             style={{ marginBottom: 0, flex: 1 }}
             keyExtractor={(item) => item.id}
-            data={productList}
+            data={myRecommendations}
             renderItem={({ item }) => (
               <ProductSmallCard
+                id={item.id}
                 title={item.title}
+                price={item.price}
+                size={item.size}
+                inStock={item.inStock}
                 image={item.image}
+                rating={item.rating}
                 navigation={navigation}
               />
             )}

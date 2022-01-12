@@ -16,7 +16,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import ReviewCard from "../../components/ReviewCard";
 import SearchBarComponent from "../../components/searchBar";
 
-export default function ProductPage() {
+export default function ProductPage({ route }) {
   const updateSearch = (search) => {
     setSearch(search);
   };
@@ -30,11 +30,18 @@ export default function ProductPage() {
       <ScrollView>
         <View style={styles.container}>
           <Text style={styles.productHeading}>
-            All-In Essentials Half Sleeves Tshirt
+            {route.params.title
+              ? route.params.title
+              : "All-In Essentials Half Sleeves Tshirt"}
           </Text>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Star score={3.5} style={styles.starStyle} />
-            <Text style={{ marginBottom: 10 }}>{3.5}</Text>
+            <Star
+              score={route.params.rating ? route.params.rating : 3.5}
+              style={styles.starStyle}
+            />
+            <Text style={{ marginBottom: 10 }}>
+              {route.params.rating ? route.params.rating : 3.5}
+            </Text>
           </View>
           <View
             style={{
@@ -48,7 +55,11 @@ export default function ProductPage() {
           >
             <Image
               resizeMode="contain"
-              source={require("../../assets/images/default.png")}
+              source={
+                route.params.img
+                  ? route.params.img
+                  : require("../../assets/images/default.png")
+              }
               style={{
                 height: 300,
                 width: 200,
@@ -57,11 +68,13 @@ export default function ProductPage() {
           </View>
           <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
             <View>
-              <Text style={styles.price}>₹2500</Text>
+              <Text style={styles.price}>
+                ₹{route.params.price ? route.params.price : 2500}
+              </Text>
               <Text
                 style={(styles.price, { marginHorizontal: 10, fontSize: 16 })}
               >
-                In Stock
+                {route.params.inStockBool ? "In Stock" : "Out Of Stock"}
               </Text>
             </View>
             <View style={styles.sizeView}>

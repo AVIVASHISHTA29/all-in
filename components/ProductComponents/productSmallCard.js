@@ -5,7 +5,13 @@ function ProductSmallCard(props) {
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
-        props.navigation.navigate("Product");
+        props.navigation.navigate("Product", {
+          title: props.title,
+          price: props.price,
+          inStockBool: props.inStock,
+          img: props.image,
+          rating: props.rating,
+        });
       }}
     >
       <Image

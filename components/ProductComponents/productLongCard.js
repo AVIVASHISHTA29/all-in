@@ -1,18 +1,38 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-function ProductLongCard({ title, price, size, inStock, image, navigation }) {
+function ProductLongCard(
+  props
+  // {
+  // id,
+  // title,
+  // price,
+  // size,
+  // inStock,
+  // image,
+  // navigation,
+  // deleteItem,
+  // showDeleteButton,
+  // showAddToCartButton,
+  // }
+) {
   return (
     <TouchableOpacity
       style={styles.productContainer}
       onPress={() => {
-        navigation.navigate("Product");
+        props.navigation.navigate("Product", {
+          title: props.title,
+          price: props.price,
+          inStockBool: props.inStock,
+          img: props.image,
+          rating: props.rating,
+        });
       }}
     >
       <View style={styles.flexContainer}>
         <View style={styles.imgView}>
           <Image
             resizeMode="contain"
-            source={image}
+            source={props.image}
             style={{
               marginLeft: "auto",
               marginRight: "auto",
@@ -24,27 +44,39 @@ function ProductLongCard({ title, price, size, inStock, image, navigation }) {
           />
         </View>
         <View style={styles.infoView}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.price}>₹{price}</Text>
-          <Text style={styles.size}>Size: {size}</Text>
+          <Text style={styles.title}>{props.title}</Text>
+          <Text style={styles.price}>₹{props.price}</Text>
+          <Text style={styles.size}>Size: {props.size}</Text>
           <Text style={styles.size}>
-            {inStock ? "In Stock" : "Out Of Stock"}
+            {props.inStock ? "In Stock" : "Out Of Stock"}
           </Text>
+
           <View style={styles.buttonView}>
-            <TouchableOpacity style={styles.btn}>
-              <Image
-                resizeMode="contain"
-                style={{ width: 20, height: 20 }}
-                source={require("../../assets/icons/dustbin.png")}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.btn}>
-              <Image
-                resizeMode="contain"
-                style={{ width: 20, height: 20 }}
-                source={require("../../assets/icons/TopBarIcons/cart.png")}
-              />
-            </TouchableOpacity>
+            {props.showDeleteButton ? (
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => props.deleteItem(props.id)}
+              >
+                <Image
+                  resizeMode="contain"
+                  style={{ width: 20, height: 20 }}
+                  source={require("../../assets/icons/dustbin.png")}
+                />
+              </TouchableOpacity>
+            ) : (
+              <></>
+            )}
+            {props.showAddToCartButton ? (
+              <TouchableOpacity style={styles.btn}>
+                <Image
+                  resizeMode="contain"
+                  style={{ width: 20, height: 20 }}
+                  source={require("../../assets/icons/TopBarIcons/cart.png")}
+                />
+              </TouchableOpacity>
+            ) : (
+              <></>
+            )}
           </View>
         </View>
       </View>

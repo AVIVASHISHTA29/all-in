@@ -2,9 +2,7 @@ import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 
 export default function ProductCollection(props) {
-  const openProduct = () => {
-    props.navigation.navigate("Product");
-  };
+  const openProduct = (title, img) => {};
 
   const productList = [
     {
@@ -55,7 +53,12 @@ export default function ProductCollection(props) {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.productContainer}
-            onPress={openProduct}
+            onPress={() => {
+              props.navigation.navigate("Product", {
+                title: item.title,
+                img: item.image,
+              });
+            }}
           >
             <View>
               <Image

@@ -16,6 +16,7 @@ import { useContext } from "react";
 import { Context } from "../components/globalContext/globalContext";
 import ProductStack from "./productStack";
 import topBarStack from "./topBarStack";
+import { StackActions } from "@react-navigation/routers";
 
 const Drawer = createDrawerNavigator();
 

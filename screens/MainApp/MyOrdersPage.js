@@ -7,69 +7,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { myOrderList, myRecommendations } from "../../data/data.js";
 import ProductLongCard from "../../components/ProductComponents/productLongCard";
 import ProductSmallCard from "../../components/ProductComponents/productSmallCard";
 
 const MyOrders = ({ navigation }) => {
-  const productList = [
-    {
-      id: "1",
-      title: "Product Title",
-      price: "2200",
-      size: "M",
-      inStock: true,
-      image: require("../../assets/images/shoe.png"),
-    },
-    {
-      id: "2",
-      title: "Product Title 2",
-      price: "2500",
-      size: "M",
-      inStock: true,
-      image: require("../../assets/images/shirt.png"),
-    },
-    {
-      id: "3",
-      title: "Product Title 3",
-      price: "2200",
-      size: "Xl",
-      inStock: false,
-      image: require("../../assets/images/pants.png"),
-    },
-    {
-      id: "4",
-      title: "Product Title 4",
-      price: "2200",
-      size: "M",
-      inStock: true,
-      image: require("../../assets/images/shoe.png"),
-    },
-    {
-      id: "5",
-      title: "Product Title 5",
-      price: "2200",
-      size: "M",
-      inStock: false,
-      image: require("../../assets/images/pants.png"),
-    },
-    {
-      id: "6",
-      title: "Product Title 6",
-      price: "2200",
-      size: "M",
-      inStock: true,
-      image: require("../../assets/images/tank.png"),
-    },
-    {
-      id: "7",
-      title: "Product Title 7",
-      price: "2200",
-      size: "Sm",
-      inStock: false,
-      image: require("../../assets/images/shirt.png"),
-    },
-  ];
-
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>My Orders</Text>
@@ -78,7 +20,7 @@ const MyOrders = ({ navigation }) => {
           nestedScrollEnabled
           style={{ marginBottom: 20, flex: 1 }}
           keyExtractor={(item) => item.id}
-          data={productList}
+          data={myOrderList}
           renderItem={({ item }) => (
             <ProductLongCard
               title={item.title}
@@ -86,18 +28,21 @@ const MyOrders = ({ navigation }) => {
               size={item.size}
               inStock={item.inStock}
               image={item.image}
+              rating={item.rating}
               navigation={navigation}
+              showDeleteButton={false}
+              showAddToCartButton={false}
             />
           )}
         />
         <View style={{ flex: 0.4 }}>
-          <Text style={styles.subHeading}>You Also Bought</Text>
+          <Text style={styles.subHeading}>You May Also Like</Text>
           <FlatList
             nestedScrollEnabled
             horizontal={true}
             style={{ marginBottom: 0, flex: 1 }}
             keyExtractor={(item) => item.id}
-            data={productList}
+            data={myRecommendations}
             renderItem={({ item }) => (
               <ProductSmallCard
                 title={item.title}

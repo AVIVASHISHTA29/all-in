@@ -26,7 +26,7 @@ export default function App() {
   if (fontsLoaded) {
     return (
       <Provider>
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, backgroundColor: "#fff" }}>
           <NavigationContainer ref={createRef()}>
             <Navigator />
           </NavigationContainer>

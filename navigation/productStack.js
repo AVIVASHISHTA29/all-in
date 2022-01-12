@@ -9,12 +9,13 @@ import Profile from "../screens/MainApp/Profile.js";
 
 const Stack = createStackNavigator();
 
-function ProductStack() {
+function ProductStack(props) {
   const globalContext = useContext(Context);
   const { isLoggedIn, userObj } = globalContext;
 
   return (
     <Stack.Navigator
+      initialRouteName="HomePage"
       screenOptions={{
         headerTintColor: "#000",
         headerTitleStyle: { display: "none" },
@@ -24,6 +25,7 @@ function ProductStack() {
           shadowOpacity: 0, // remove shadow on iOS
           borderBottomWidth: 0, // Just in case.
         },
+        cardStyle: { backgroundColor: "#FFFFFF" },
       }}
     >
       <Stack.Screen
@@ -44,6 +46,21 @@ function ProductStack() {
             borderBottomWidth: 0, // Just in case.
           },
         }}
+      />
+      <Stack.Screen
+        name="Wishlist"
+        component={Wishlist}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="My Cart"
+        component={MyCart}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Profile"
+        component={Profile}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
