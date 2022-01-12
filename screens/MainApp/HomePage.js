@@ -9,10 +9,9 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import ProductCollection from "../../components/ProductComponents/productCollections";
-
 import SearchBarComponent from "../../components/searchBar";
 
-export default function HomePage() {
+export default function HomePage({ navigation }) {
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -21,7 +20,7 @@ export default function HomePage() {
     >
       <SafeAreaView style={styles.container}>
         <SearchBarComponent />
-        <ProductCollection />
+        <ProductCollection navigation={navigation} />
       </SafeAreaView>
     </TouchableWithoutFeedback>
   );

@@ -1,11 +1,11 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-function ProductLongCard({ title, price, size, inStock, image }) {
+function ProductLongCard({ title, price, size, inStock, image, navigation }) {
   return (
     <TouchableOpacity
       style={styles.productContainer}
       onPress={() => {
-        console.log("hi");
+        navigation.navigate("Product");
       }}
     >
       <View style={styles.flexContainer}>

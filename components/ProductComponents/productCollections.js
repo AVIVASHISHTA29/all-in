@@ -1,14 +1,11 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { useState } from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
-import { SearchBar } from "react-native-elements";
 import { FlatList } from "react-native-gesture-handler";
-// import ProductStack from "../../navigation/signupStack";
 
-export default function ProductCollection({ navigation }) {
+export default function ProductCollection(props) {
   const openProduct = () => {
-    navigation.navigate("ProductPage");
+    props.navigation.navigate("Product");
   };
+
   const productList = [
     {
       id: "1",
@@ -51,7 +48,7 @@ export default function ProductCollection({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.heading}>Fall Collection</Text>
       <FlatList
-        style={{ marginBottom: 75 }}
+        style={{ marginBottom: 120 }}
         numColumns={2}
         keyExtractor={(item) => item.id}
         data={productList}

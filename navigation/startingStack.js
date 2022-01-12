@@ -4,6 +4,7 @@ import SignUp1 from "../screens/SignUp/signUp";
 import { Context } from "../components/globalContext/globalContext.js";
 import StartingScreen from "../screens/StartingScreen.js";
 import DrawerTab from "./drawer.js";
+import LoginPage from "../screens/Login/login";
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,11 @@ function Navigator(props) {
           <Stack.Screen
             name="SignUp1"
             component={SignUp1}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="LoginPage"
+            component={LoginPage}
             options={{ headerShown: false }}
           />
         </>

@@ -13,7 +13,7 @@ import { TextInput } from "react-native-gesture-handler";
 import { useContext } from "react";
 import { Context } from "../../components/globalContext/globalContext";
 
-export default function SignUp1({ navigation, route, props }) {
+export default function LoginPage({ navigation, route, props }) {
   const globalContext = useContext(Context);
   const { isLoggedIn, setIsLoggedIn, setUserObj } = globalContext;
 
@@ -29,13 +29,12 @@ export default function SignUp1({ navigation, route, props }) {
     >
       <SafeAreaView style={{ backgroundColor: "#fff", flex: 1 }}>
         <View style={styles.container}>
-          <Text style={styles.mainHeading}>Sign Up</Text>
+          <Text style={styles.mainHeading}>Login</Text>
           <View
             style={{
               justifyContent: "center",
               alignItems: "center",
               margin: 20,
-              marginBottom: 0,
             }}
           >
             {/* <Image
@@ -45,7 +44,7 @@ export default function SignUp1({ navigation, route, props }) {
                 width: "30%",
               }}
             /> */}
-            <AntDesign name="adduser" size={48} color="black" />
+            <AntDesign name="user" size={48} color="#000" />
           </View>
           <TouchableOpacity
             style={{
@@ -55,6 +54,7 @@ export default function SignUp1({ navigation, route, props }) {
               width: "100%",
               padding: 12,
               margin: 30,
+              marginTop: 0,
               marginBottom: 20,
               backgroundColor: "#C4C4C4",
               marginLeft: 0,
@@ -76,18 +76,11 @@ export default function SignUp1({ navigation, route, props }) {
                 color: "#333",
               }}
             >
-              Sign In With Google
+              Login With Google
             </Text>
           </TouchableOpacity>
-          <Text style={styles.subHeading}>Or Use Your Email ID to Sign Up</Text>
+          <Text style={styles.subHeading}>Or Use Your Email ID to Login</Text>
           <View>
-            <TextInput
-              style={styles.input}
-              // onChangeText={onChangeNumber}
-              // value={number}
-              placeholder="Full Name"
-              // keyboardType="default"
-            />
             <TextInput
               style={styles.input}
               // onChangeText={onChangeNumber}
@@ -100,13 +93,6 @@ export default function SignUp1({ navigation, route, props }) {
               // onChangeText={onChangeNumber}
               // value={number}
               placeholder="Password"
-              // keyboardType="default"
-            />
-            <TextInput
-              style={styles.input}
-              // onChangeText={onChangeNumber}
-              // value={number}
-              placeholder="Confirm Password"
               // keyboardType="default"
             />
           </View>

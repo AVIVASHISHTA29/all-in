@@ -1,14 +1,19 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-function ProductSmallCard({ image, title }) {
+function ProductSmallCard(props) {
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        props.navigation.navigate("Product");
+      }}
+    >
       <Image
         resizeMode="contain"
-        source={image}
+        source={props.image}
         style={{ width: 70, height: 70 }}
       />
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title}>{props.title}</Text>
     </TouchableOpacity>
   );
 }

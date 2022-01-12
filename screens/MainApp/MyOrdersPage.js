@@ -86,6 +86,7 @@ const MyOrders = ({ navigation }) => {
               size={item.size}
               inStock={item.inStock}
               image={item.image}
+              navigation={navigation}
             />
           )}
         />
@@ -98,7 +99,11 @@ const MyOrders = ({ navigation }) => {
             keyExtractor={(item) => item.id}
             data={productList}
             renderItem={({ item }) => (
-              <ProductSmallCard title={item.title} image={item.image} />
+              <ProductSmallCard
+                title={item.title}
+                image={item.image}
+                navigation={navigation}
+              />
             )}
           />
         </View>

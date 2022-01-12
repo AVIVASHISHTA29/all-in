@@ -12,8 +12,11 @@ import { Context } from "../components/globalContext/globalContext";
 export default function StartingScreen({ navigation }) {
   const globalContext = useContext(Context);
   const { isLoggedIn } = globalContext;
-  const getStarted = () => {
+  const signup = () => {
     navigation.push("SignUp1");
+  };
+  const login = () => {
+    navigation.push("LoginPage");
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -24,7 +27,7 @@ export default function StartingScreen({ navigation }) {
         style={{ width: 400, height: 400, flex: 4 }}
       />
       <View style={{ flex: 1, marginTop: 50 }}>
-        <TouchableOpacity style={styles.btn} onPress={getStarted}>
+        <TouchableOpacity style={styles.btn} onPress={signup}>
           <Text
             style={{
               color: "#fff",
@@ -35,7 +38,7 @@ export default function StartingScreen({ navigation }) {
             Get Started
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={login}>
           <Text
             style={{
               fontFamily: "Roboto-Bold",
@@ -44,7 +47,7 @@ export default function StartingScreen({ navigation }) {
               textAlign: "center",
             }}
           >
-            Login with email
+            Login with Email
           </Text>
         </TouchableOpacity>
       </View>

@@ -14,10 +14,12 @@ import MyCart from "../screens/MainApp/MyCart";
 import { Text, TouchableOpacity } from "react-native";
 import { useContext } from "react";
 import { Context } from "../components/globalContext/globalContext";
+import ProductStack from "./productStack";
+import topBarStack from "./topBarStack";
 
 const Drawer = createDrawerNavigator();
 
-function DrawerTab() {
+function DrawerTab({ navigation }) {
   const globalContext = useContext(Context);
   const { setIsLoggedIn } = globalContext;
   return (
@@ -42,41 +44,44 @@ function DrawerTab() {
     >
       <Drawer.Screen
         name="Home"
-        component={HomePage}
+        initialRouteName={"HomePage"}
+        children={ProductStack}
         options={{
-          headerRight: () => <RightNavButtons />,
+          headerRight: () => <RightNavButtons navigation={navigation} />,
         }}
       />
       <Drawer.Screen
         name="My Orders"
         component={MyOrders}
         options={{
-          headerRight: () => <RightNavButtons />,
-        }}
-      />
-      <Drawer.Screen
-        name="Wishlist"
-        component={Wishlist}
-        options={{
-          headerRight: () => <RightNavButtons />,
+          headerRight: () => <RightNavButtons navigation={navigation} />,
         }}
       />
       <Drawer.Screen
         name="My Cart"
         component={MyCart}
         options={{
-          headerRight: () => <RightNavButtons />,
+          headerRight: () => <RightNavButtons navigation={navigation} />,
         }}
       />
+      {/* 
+      <Drawer.Screen
+        name="Wishlist"
+        component={Wishlist}
+        options={{
+          headerRight: () => <RightNavButtons navigation={navigation} />,
+        }}
+      />
+      
       <Drawer.Screen
         name="Profile"
         component={Profile}
         options={{
-          headerRight: () => <RightNavButtons />,
+          headerRight: () => <RightNavButtons navigation={navigation} />,
         }}
       />
-
-      {/* <Drawer.Screen
+      
+      <Drawer.Screen
         name="Product Page"
         component={ProductPage}
         options={{

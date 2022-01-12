@@ -72,7 +72,7 @@ const MyCart = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>My Orders</Text>
+      <Text style={styles.heading}>My Cart</Text>
       <View style={{ flex: 1 }}>
         <FlatList
           nestedScrollEnabled
@@ -86,6 +86,7 @@ const MyCart = ({ navigation }) => {
               size={item.size}
               inStock={item.inStock}
               image={item.image}
+              navigation={navigation}
             />
           )}
         />
@@ -98,7 +99,11 @@ const MyCart = ({ navigation }) => {
             keyExtractor={(item) => item.id}
             data={productList}
             renderItem={({ item }) => (
-              <ProductSmallCard title={item.title} image={item.image} />
+              <ProductSmallCard
+                title={item.title}
+                image={item.image}
+                navigation={navigation}
+              />
             )}
           />
         </View>

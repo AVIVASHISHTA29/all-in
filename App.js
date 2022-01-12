@@ -1,17 +1,17 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import * as Font from "expo-font";
-import { useState } from "react";
+import { createRef, useState } from "react";
 import AppLoading from "expo-app-loading";
 import StartingScreen from "./screens/StartingScreen";
 import SignUp1 from "./screens/SignUp/signUp";
 import HomePage from "./screens/MainApp/HomePage";
 import { NavigationContainer } from "@react-navigation/native";
 import Tabs from "./navigation/tabs";
-import SignupStack from "./navigation/signupStack";
+import SignupStack from "./navigation/startingStack";
 import DrawerTab from "./navigation/drawer";
 import { Provider } from "./components/globalContext/globalContext";
-import Navigator from "./navigation/signupStack";
+import Navigator from "./navigation/startingStack";
 const getFonts = () => {
   return Font.loadAsync({
     "Roboto-Regular": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
@@ -27,7 +27,7 @@ export default function App() {
     return (
       <Provider>
         <View style={{ flex: 1 }}>
-          <NavigationContainer>
+          <NavigationContainer ref={createRef()}>
             <Navigator />
           </NavigationContainer>
         </View>
