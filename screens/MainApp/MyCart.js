@@ -34,6 +34,7 @@ const MyCart = ({ navigation }) => {
               deleteItem={deleteItem}
               showDeleteButton={true}
               showAddToCartButton={false}
+              showAddToWishListButton={true}
             />
           )}
         />

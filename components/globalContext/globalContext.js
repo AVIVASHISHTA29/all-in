@@ -5,8 +5,8 @@ const Context = createContext();
 
 const Provider = ({ children }) => {
   const [domain, setDomain] = useState("http://localhost:8000");
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const [userObj, setUserObj] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userObj, setUserObj] = useState(false);
   const [appSettings, setAppSettings] = useState({});
 
   const setToken = async (token) => {

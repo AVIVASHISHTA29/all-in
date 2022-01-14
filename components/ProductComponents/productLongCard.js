@@ -52,6 +52,22 @@ function ProductLongCard(props) {
             ) : (
               <></>
             )}
+            {props.showAddToWishListButton ? (
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => {
+                  console.log("Added to wish list!");
+                }}
+              >
+                <Image
+                  resizeMode="contain"
+                  style={{ width: 20, height: 20 }}
+                  source={require("../../assets/icons/TopBarIcons/saved.png")}
+                />
+              </TouchableOpacity>
+            ) : (
+              <></>
+            )}
             {props.showAddToCartButton ? (
               <TouchableOpacity style={styles.btn}>
                 <Image
