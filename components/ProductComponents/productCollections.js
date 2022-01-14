@@ -3,8 +3,6 @@ import { FlatList } from "react-native-gesture-handler";
 import Star from "react-native-star-view";
 
 export default function ProductCollection(props) {
-  const openProduct = (title, img) => {};
-
   const collectionList = [
     {
       id: "1",
