@@ -19,6 +19,7 @@ export default function SignUp1({ navigation, route, props }) {
     globalContext;
 
   const [securePassword, setSecurePassword] = useState(true);
+  const [secureConfirmPassword, setSecureConfirmPassword] = useState(true);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -149,24 +150,52 @@ export default function SignUp1({ navigation, route, props }) {
               style={styles.input}
               placeholder="Email"
             />
-            <TextInput
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-              secureTextEntry={securePassword}
-              textContentType="password"
-              autoCompleteType="password"
-              style={styles.input}
-              placeholder="Password"
-            />
-            <TextInput
-              value={confirmPassword}
-              onChangeText={(text) => setConfirmPassword(text)}
-              secureTextEntry={securePassword}
-              textContentType="password"
-              autoCompleteType="password"
-              style={styles.input}
-              placeholder="Confirm Password"
-            />
+            <View
+              style={[
+                styles.input,
+                { flexDirection: "row", justifyContent: "space-between" },
+              ]}
+            >
+              <TextInput
+                style={{ fontSize: 18, flex: 1, marginRight: 5 }}
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+                secureTextEntry={securePassword}
+                textContentType="password"
+                autoCompleteType="password"
+                placeholder="Password"
+              />
+              <TouchableOpacity
+                onPress={() => {
+                  setSecurePassword(!securePassword);
+                }}
+              >
+                <AntDesign name="eye" size={24} color="#999" />
+              </TouchableOpacity>
+            </View>
+            <View
+              style={[
+                styles.input,
+                { flexDirection: "row", justifyContent: "space-between" },
+              ]}
+            >
+              <TextInput
+                style={{ fontSize: 18, flex: 1, marginRight: 5 }}
+                value={confirmPassword}
+                onChangeText={(text) => setConfirmPassword(text)}
+                secureTextEntry={secureConfirmPassword}
+                textContentType="password"
+                autoCompleteType="password"
+                placeholder="Confirm Password"
+              />
+              <TouchableOpacity
+                onPress={() => {
+                  setSecureConfirmPassword(!secureConfirmPassword);
+                }}
+              >
+                <AntDesign name="eye" size={24} color="#999" />
+              </TouchableOpacity>
+            </View>
           </View>
           <Text style={styles.error}>{error}</Text>
           <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>

@@ -125,15 +125,29 @@ export default function LoginPage({ navigation, route, props }) {
               style={styles.input}
               placeholder="Email"
             />
-            <TextInput
-              value={password}
-              onChangeText={(text) => setPassword(text)}
-              secureTextEntry={securePassword}
-              textContentType="password"
-              autoCompleteType="password"
-              style={styles.input}
-              placeholder="Password"
-            />
+            <View
+              style={[
+                styles.input,
+                { flexDirection: "row", justifyContent: "space-between" },
+              ]}
+            >
+              <TextInput
+                style={{ fontSize: 18, flex: 1, marginRight: 5 }}
+                value={password}
+                onChangeText={(text) => setPassword(text)}
+                secureTextEntry={securePassword}
+                textContentType="password"
+                autoCompleteType="password"
+                placeholder="Password"
+              />
+              <TouchableOpacity
+                onPress={() => {
+                  setSecurePassword(!securePassword);
+                }}
+              >
+                <AntDesign name="eye" size={24} color="#999" />
+              </TouchableOpacity>
+            </View>
           </View>
           <Text style={styles.error}>{error}</Text>
           <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
