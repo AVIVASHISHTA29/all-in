@@ -1,20 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-function ProductLongCard(
-  props
-  // {
-  // id,
-  // title,
-  // price,
-  // size,
-  // inStock,
-  // image,
-  // navigation,
-  // deleteItem,
-  // showDeleteButton,
-  // showAddToCartButton,
-  // }
-) {
+function ProductLongCard(props) {
   return (
     <TouchableOpacity
       style={styles.productContainer}

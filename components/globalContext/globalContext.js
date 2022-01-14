@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, createContext } from "react";
+import * as SecureStore from "expo-secure-store";
 
 const Context = createContext();
 

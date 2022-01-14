@@ -10,16 +10,59 @@ import {
 } from "react-native";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context } from "../../components/globalContext/globalContext";
 
 export default function SignUp1({ navigation, route, props }) {
   const globalContext = useContext(Context);
-  const { isLoggedIn, setIsLoggedIn, setUserObj } = globalContext;
+  const { setIsLoggedIn, appSettings, domain, userObj, setUserObj, setToken } =
+    globalContext;
 
-  function login() {
-    setIsLoggedIn(true);
-    setUserObj(true);
+  const [securePassword, setSecurePassword] = useState(true);
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+
+  function handleSignUp() {
+    setError("");
+    if (confirmPassword != password) {
+      setError("Passwords do not match!");
+    } else {
+      let body = JSON.stringify({
+        username: email.toLowerCase(),
+        email: email.toLowerCase(),
+        first_name: firstName,
+        last_name: lastName,
+        password: password,
+      });
+
+      fetch(`${domain}/api/v1.0/user/create-user/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: body,
+      })
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            setError("User already exists");
+            throw res.json();
+          }
+        })
+        .then((json) => {
+          setUserObj(json);
+          setToken(json.token);
+          setIsLoggedIn(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   }
   return (
     <TouchableWithoutFeedback
@@ -38,13 +81,6 @@ export default function SignUp1({ navigation, route, props }) {
               marginBottom: 0,
             }}
           >
-            {/* <Image
-              resizeMode="contain"
-              source={require("../../assets/images/shoe.png")}
-              style={{
-                width: "30%",
-              }}
-            /> */}
             <AntDesign name="adduser" size={48} color="black" />
           </View>
           <TouchableOpacity
@@ -82,35 +118,54 @@ export default function SignUp1({ navigation, route, props }) {
           <Text style={styles.subHeading}>Or Use Your Email ID to Sign Up</Text>
           <View>
             <TextInput
+              value={firstName}
+              onChangeText={(text) => setFirstName(text)}
+              textContentType="name"
+              autoCompleteType="name"
               style={styles.input}
-              // onChangeText={onChangeNumber}
-              // value={number}
-              placeholder="Full Name"
-              // keyboardType="default"
+              placeholder="First Name"
             />
             <TextInput
+              value={lastName}
+              onChangeText={(text) => setLastName(text)}
+              textContentType="name"
+              autoCompleteType="name"
               style={styles.input}
-              // onChangeText={onChangeNumber}
-              // value={number}
+              placeholder="Last Name"
+            />
+
+            <TextInput
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+              textContentType="username"
+              autoCompleteType="email"
+              style={styles.input}
               placeholder="Email"
-              // keyboardType="default"
             />
             <TextInput
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+              secureTextEntry={securePassword}
+              textContentType="password"
+              autoCompleteType="password"
               style={styles.input}
-              // onChangeText={onChangeNumber}
-              // value={number}
               placeholder="Password"
-              // keyboardType="default"
             />
             <TextInput
+              value={confirmPassword}
+              onChangeText={(text) => setConfirmPassword(text)}
+              secureTextEntry={securePassword}
+              textContentType="password"
+              autoCompleteType="password"
               style={styles.input}
-              // onChangeText={onChangeNumber}
-              // value={number}
               placeholder="Confirm Password"
-              // keyboardType="default"
             />
           </View>
-          <TouchableOpacity style={styles.floatingButton} onPress={login}>
+          <Text style={styles.error}>{error}</Text>
+          <TouchableOpacity
+            style={styles.floatingButton}
+            onPress={handleSignUp}
+          >
             <AntDesign name="arrowright" size={30} color="#fff" />
           </TouchableOpacity>
         </View>
@@ -163,5 +218,9 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: "#000",
     borderRadius: 100,
+  },
+  error: {
+    color: "red",
+    marginTop: 10,
   },
 });

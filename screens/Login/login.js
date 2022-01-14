@@ -10,17 +10,53 @@ import {
 } from "react-native";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Context } from "../../components/globalContext/globalContext";
 
 export default function LoginPage({ navigation, route, props }) {
   const globalContext = useContext(Context);
-  const { isLoggedIn, setIsLoggedIn, setUserObj } = globalContext;
+  const { setIsLoggedIn, appSettings, domain, userObj, setUserObj, setToken } =
+    globalContext;
 
-  function login() {
-    setIsLoggedIn(true);
-    setUserObj(true);
+  const [securePassword, setSecurePassword] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  function handleLogin() {
+    setError("");
+
+    let body = JSON.stringify({
+      username: email.toLowerCase(),
+      password: password,
+    });
+
+    fetch(`${domain}/api/v1.0/user/login-user/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          setError("Invalid Credentials");
+          throw res.json();
+        }
+      })
+      .then((json) => {
+        console.log(json);
+        setUserObj(json);
+        setToken(json.token);
+        setIsLoggedIn(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -82,21 +118,25 @@ export default function LoginPage({ navigation, route, props }) {
           <Text style={styles.subHeading}>Or Use Your Email ID to Login</Text>
           <View>
             <TextInput
+              value={email}
+              onChangeText={(text) => setEmail(text)}
+              textContentType="username"
+              autoCompleteType="email"
               style={styles.input}
-              // onChangeText={onChangeNumber}
-              // value={number}
               placeholder="Email"
-              // keyboardType="default"
             />
             <TextInput
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+              secureTextEntry={securePassword}
+              textContentType="password"
+              autoCompleteType="password"
               style={styles.input}
-              // onChangeText={onChangeNumber}
-              // value={number}
               placeholder="Password"
-              // keyboardType="default"
             />
           </View>
-          <TouchableOpacity style={styles.floatingButton} onPress={login}>
+          <Text style={styles.error}>{error}</Text>
+          <TouchableOpacity style={styles.floatingButton} onPress={handleLogin}>
             <AntDesign name="arrowright" size={30} color="#fff" />
           </TouchableOpacity>
         </View>
@@ -149,5 +189,9 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: "#000",
     borderRadius: 100,
+  },
+  error: {
+    color: "red",
+    marginTop: 10,
   },
 });
