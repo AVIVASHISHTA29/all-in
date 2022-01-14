@@ -8,7 +8,7 @@ export default function ProductCollection(props) {
       id: "1",
       title: "Product Title",
       image: require("../../assets/images/default.png"),
-      price: "2200",
+      price: "2300",
       size: "Sm",
       rating: 4,
       inStock: false,
