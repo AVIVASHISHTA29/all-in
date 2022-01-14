@@ -30,6 +30,13 @@ export default function SignUp1({ navigation, route, props }) {
     setError("");
     if (confirmPassword != password) {
       setError("Passwords do not match!");
+    } else if (
+      email == "" ||
+      firstName == "" ||
+      lastName == "" ||
+      password == ""
+    ) {
+      setError("All Fields Are Required!");
     } else {
       let body = JSON.stringify({
         username: email.toLowerCase(),
@@ -162,12 +169,14 @@ export default function SignUp1({ navigation, route, props }) {
             />
           </View>
           <Text style={styles.error}>{error}</Text>
-          <TouchableOpacity
-            style={styles.floatingButton}
-            onPress={handleSignUp}
-          >
-            <AntDesign name="arrowright" size={30} color="#fff" />
-          </TouchableOpacity>
+          <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
+            <TouchableOpacity
+              style={styles.floatingButton}
+              onPress={handleSignUp}
+            >
+              <AntDesign name="arrowright" size={30} color="#fff" />
+            </TouchableOpacity>
+          </View>
         </View>
       </SafeAreaView>
     </TouchableWithoutFeedback>
@@ -209,12 +218,10 @@ const styles = StyleSheet.create({
   floatingButton: {
     borderWidth: 5,
     borderColor: "#000",
-    marginVertical: 30,
     alignItems: "center",
     justifyContent: "center",
     width: 60,
     position: "relative",
-    left: "80%",
     height: 60,
     backgroundColor: "#000",
     borderRadius: 100,
