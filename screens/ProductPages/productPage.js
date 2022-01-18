@@ -15,6 +15,8 @@ import Star from "react-native-star-view";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import ReviewCard from "../../components/ReviewCard";
 import SearchBarComponent from "../../components/searchBar";
+import { showMessage } from "react-native-flash-message";
+import shareProduct from "../../components/functions/Share/sharingProducts";
 
 export default function ProductPage({ route }) {
   const updateSearch = (search) => {
@@ -121,14 +123,24 @@ export default function ProductPage({ route }) {
             />
           </View>
           <View style={{ flex: 0.5, flexDirection: "row", marginBottom: 0 }}>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity style={styles.btn} onPress={shareProduct}>
               <Image
                 resizeMode="contain"
                 source={require("../../assets/icons/share.png")}
                 style={{ width: 20, height: 20 }}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btn2}>
+            <TouchableOpacity
+              style={styles.btn2}
+              onPress={() => {
+                showMessage({
+                  message: "Added To Your Wish List",
+                  description:
+                    "This item was successfully added to your wish list!",
+                  type: "success",
+                });
+              }}
+            >
               <Text
                 style={{
                   backgroundColor: "#C4C4C4",
@@ -144,7 +156,17 @@ export default function ProductPage({ route }) {
                 style={{ width: 20, height: 20 }}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.btn2}>
+            <TouchableOpacity
+              style={styles.btn2}
+              onPress={() => {
+                showMessage({
+                  message: "Added To Your Cart",
+                  description:
+                    "This item was successfully added to your cart! Happy Shopping !",
+                  type: "success",
+                });
+              }}
+            >
               <Text
                 style={{
                   backgroundColor: "#C4C4C4",

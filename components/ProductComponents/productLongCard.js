@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-
+import { showMessage } from "react-native-flash-message";
 function ProductLongCard(props) {
   return (
     <TouchableOpacity
@@ -41,7 +41,14 @@ function ProductLongCard(props) {
             {props.showDeleteButton ? (
               <TouchableOpacity
                 style={styles.btn}
-                onPress={() => props.deleteItem(props.id)}
+                onPress={() => {
+                  props.deleteItem(props.id);
+                  showMessage({
+                    message: "Item Deleted",
+                    description: "This item was successfully removed!",
+                    type: "success",
+                  });
+                }}
               >
                 <Image
                   resizeMode="contain"
@@ -57,6 +64,12 @@ function ProductLongCard(props) {
                 style={styles.btn}
                 onPress={() => {
                   console.log("Added to wish list!");
+                  showMessage({
+                    message: "Added To Your Wish List",
+                    description:
+                      "This item was successfully added to your wish list!",
+                    type: "success",
+                  });
                 }}
               >
                 <Image
@@ -69,7 +82,17 @@ function ProductLongCard(props) {
               <></>
             )}
             {props.showAddToCartButton ? (
-              <TouchableOpacity style={styles.btn}>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => {
+                  showMessage({
+                    message: "Added To Your Cart",
+                    description:
+                      "This item was successfully added to your cart! Happy Shopping !",
+                    type: "success",
+                  });
+                }}
+              >
                 <Image
                   resizeMode="contain"
                   style={{ width: 20, height: 20 }}

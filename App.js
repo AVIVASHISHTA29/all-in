@@ -12,6 +12,7 @@ import SignupStack from "./navigation/startingStack";
 import DrawerTab from "./navigation/drawer";
 import { Provider } from "./components/globalContext/globalContext";
 import Navigator from "./navigation/startingStack";
+import FlashMessage from "react-native-flash-message";
 const getFonts = () => {
   return Font.loadAsync({
     "Roboto-Regular": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
@@ -30,6 +31,7 @@ export default function App() {
           <NavigationContainer ref={createRef()}>
             <Navigator />
           </NavigationContainer>
+          <FlashMessage position="top" />
         </View>
       </Provider>
       // <NavigationContainer>

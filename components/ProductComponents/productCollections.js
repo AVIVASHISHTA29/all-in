@@ -1,6 +1,8 @@
 import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import Star from "react-native-star-view";
+import { showMessage } from "react-native-flash-message";
+import shareProduct from "../functions/Share/sharingProducts";
 
 export default function ProductCollection(props) {
   const collectionList = [
@@ -107,21 +109,41 @@ export default function ProductCollection(props) {
               <View
                 style={{ flex: 0.5, flexDirection: "row", marginBottom: 0 }}
               >
-                <TouchableOpacity style={styles.btn2}>
+                <TouchableOpacity style={styles.btn2} onPress={shareProduct}>
                   <Image
                     resizeMode="contain"
                     source={require("../../assets/icons/share.png")}
                     style={{ width: 20, height: 20 }}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.btn2}>
+                <TouchableOpacity
+                  style={styles.btn2}
+                  onPress={() => {
+                    showMessage({
+                      message: "Added To Your Wish List",
+                      description:
+                        "This item was successfully added to your wish list!",
+                      type: "success",
+                    });
+                  }}
+                >
                   <Image
                     resizeMode="contain"
                     source={require("../../assets/icons/TopBarIcons/saved.png")}
                     style={{ width: 20, height: 20 }}
                   />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.btn2}>
+                <TouchableOpacity
+                  style={styles.btn2}
+                  onPress={() => {
+                    showMessage({
+                      message: "Added To Your Cart",
+                      description:
+                        "This item was successfully added to your cart! Happy Shopping !",
+                      type: "success",
+                    });
+                  }}
+                >
                   <Image
                     resizeMode="contain"
                     source={require("../../assets/icons/TopBarIcons/cart.png")}
