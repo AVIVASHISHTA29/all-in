@@ -75,7 +75,7 @@ export default function ProductCollection(props) {
     <View style={styles.container}>
       <Text style={styles.heading}>Fall Collection</Text>
       <FlatList
-        style={{ marginBottom: 120 }}
+        style={{ marginBottom: 120, marginTop: 10 }}
         numColumns={2}
         keyExtractor={(item) => item.id}
         data={collectionList}
@@ -92,7 +92,7 @@ export default function ProductCollection(props) {
               });
             }}
           >
-            <View>
+            <View style={{ flex: 1 }}>
               <Image
                 resizeMode="contain"
                 source={item.image}
@@ -107,7 +107,11 @@ export default function ProductCollection(props) {
               <Text style={styles.price}>₹{item.price}</Text>
               <Star score={item.rating} style={styles.starStyle} />
               <View
-                style={{ flex: 0.5, flexDirection: "row", marginBottom: 0 }}
+                style={{
+                  flexDirection: "row",
+                  marginTop: "auto",
+                  marginBottom: 0,
+                }}
               >
                 <TouchableOpacity style={styles.btn2} onPress={shareProduct}>
                   <Image

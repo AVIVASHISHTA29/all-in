@@ -18,7 +18,7 @@ const MyCart = ({ navigation }) => {
       <View style={{ flex: 1 }}>
         <FlatList
           nestedScrollEnabled
-          style={{ marginBottom: 20, flex: 1 }}
+          style={{ marginBottom: 20, flex: 1, marginTop: 10 }}
           keyExtractor={(item) => item.id}
           data={productList}
           renderItem={({ item }) => (

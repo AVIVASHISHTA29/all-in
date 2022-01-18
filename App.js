@@ -13,6 +13,8 @@ import DrawerTab from "./navigation/drawer";
 import { Provider } from "./components/globalContext/globalContext";
 import Navigator from "./navigation/startingStack";
 import FlashMessage from "react-native-flash-message";
+import { registerRootComponent } from "expo";
+registerRootComponent(App);
 const getFonts = () => {
   return Font.loadAsync({
     "Roboto-Regular": require("./assets/fonts/Roboto/Roboto-Regular.ttf"),
