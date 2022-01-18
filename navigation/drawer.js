@@ -17,12 +17,14 @@ import { Context } from "../components/globalContext/globalContext";
 import ProductStack from "./productStack";
 import topBarStack from "./topBarStack";
 import { StackActions } from "@react-navigation/routers";
+import AddProducts from "../screens/AdminPages/addProducts";
 
 const Drawer = createDrawerNavigator();
 
 function DrawerTab({ navigation }) {
   const globalContext = useContext(Context);
   const { setIsLoggedIn } = globalContext;
+  const isAdmin = true;
   return (
     <Drawer.Navigator
       initialRouteName="Home"
@@ -65,6 +67,20 @@ function DrawerTab({ navigation }) {
           headerRight: () => <RightNavButtons navigation={navigation} />,
         }}
       />
+      {isAdmin ? (
+        <>
+          <Drawer.Screen
+            name="Add Product"
+            component={AddProducts}
+            options={{
+              headerRight: () => <RightNavButtons navigation={navigation} />,
+            }}
+          />
+        </>
+      ) : (
+        <></>
+      )}
+
       {/* 
       <Drawer.Screen
         name="Wishlist"

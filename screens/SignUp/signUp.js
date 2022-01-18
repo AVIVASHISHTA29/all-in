@@ -20,6 +20,7 @@ export default function SignUp1({ navigation, route, props }) {
 
   const [securePassword, setSecurePassword] = useState(true);
   const [secureConfirmPassword, setSecureConfirmPassword] = useState(true);
+
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -214,10 +215,6 @@ export default function SignUp1({ navigation, route, props }) {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
-    // marginLeft: 50,
-    // textAlign: "center",
-    // color: "#000",
-    // alignItems: "center",
     justifyContent: "center",
     padding: 20,
   },
