@@ -17,8 +17,9 @@ import ReviewCard from "../../components/ReviewCard";
 import SearchBarComponent from "../../components/searchBar";
 import { showMessage } from "react-native-flash-message";
 import shareProduct from "../../components/functions/Share/sharingProducts";
+import { reviewList } from "../../data/data";
 
-export default function ProductPage({ route }) {
+export default function ProductPage({ route, navigation }) {
   const updateSearch = (search) => {
     setSearch(search);
   };
@@ -192,9 +193,15 @@ export default function ProductPage({ route }) {
               malesuada pulvinar donec quis non pretium.
             </Text>
             <Text style={styles.productSubHeading}>
-              Reviews<Text style={{ fontWeight: "300" }}> (2023)</Text>
+              Reviews
+              <Text style={{ fontWeight: "300" }}> ({reviewList.length})</Text>
             </Text>
-            <ReviewCard />
+            <ReviewCard
+              name={reviewList[0].name}
+              imgSrc={reviewList[0].imgSrc}
+              review={reviewList[0].review}
+              rating={reviewList[0].rating}
+            />
             <TouchableOpacity
               style={{
                 textAlign: "center",
@@ -204,6 +211,7 @@ export default function ProductPage({ route }) {
                 justifyContent: "center",
                 backgroundColor: "#C4C4C4",
               }}
+              onPress={() => navigation.navigate("Reviews")}
             >
               <Text style={{ fontSize: 18, fontWeight: "600" }}>
                 {" "}

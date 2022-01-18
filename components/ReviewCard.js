@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-
-function ReviewCard() {
+import Star from "react-native-star-view";
+function ReviewCard(props) {
   return (
     <TouchableOpacity style={styles.container}>
       <View
@@ -11,19 +11,20 @@ function ReviewCard() {
           backgroundColor: "#E0E0E0",
           alignItems: "center",
           justifyContent: "center",
+          marginTop: 10,
         }}
       >
         <Image
           resizeMode="contain"
-          source={require("../assets/images/head.png")}
+          source={props.imgSrc}
           style={{ width: 50, height: 50 }}
         />
       </View>
       <View style={{ flex: 1 }}>
-        <Text style={styles.title}>Name Of The Person</Text>
+        <Text style={styles.title}>{props.name}</Text>
+        <Star score={props.rating} style={styles.starStyle} />
         <Text style={{ marginHorizontal: 10, marginBottom: 10 }}>
-          Review of the App, How is it, etc, etc, loved it. 10/10 Would
-          Recommend.
+          {props.review}
         </Text>
       </View>
     </TouchableOpacity>
@@ -42,11 +43,18 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    marginVertical: 20,
+    marginVertical: 10,
     padding: 10,
     flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-start",
     justifyContent: "space-between",
     backgroundColor: "#F7F7F7",
+  },
+  starStyle: {
+    width: 100,
+    height: 20,
+    marginBottom: 20,
+    marginHorizontal: 10,
+    marginTop: 0,
   },
 });

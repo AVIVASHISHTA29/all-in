@@ -326,3 +326,54 @@ export const collectionList = [
     inStock: true,
   },
 ];
+
+export const reviewList = [
+  {
+    id: "1",
+    name: "Name",
+    review:
+      "Review of the app, How the app is blah blah blah, I am very sleepy :pp",
+    imgSrc: require("../assets/images/head.png"),
+    rating: 4,
+  },
+  {
+    id: "2",
+    name: "Name2",
+    review:
+      "Review2 of the app, How the app is blah blah blah, I am very sleepy :pp",
+    imgSrc: require("../assets/images/shoe.png"),
+    rating: 2.5,
+  },
+  {
+    id: "3",
+    name: "Name3",
+    review:
+      "Review3 of the app, How the app is blah blah blah, I am very sleepy :pp",
+    imgSrc: require("../assets/images/default.png"),
+    rating: 3.5,
+  },
+  {
+    id: "4",
+    name: "Name4",
+    review:
+      "Review4 of the app, How the app is blah blah blah, I am very sleepy :pp",
+    imgSrc: require("../assets/images/tank.png"),
+    rating: 2,
+  },
+  {
+    id: "5",
+    name: "Avi Vashishta",
+    review:
+      "Review of the app, How the app is blah blah blah, I am very sleepy :pp",
+    imgSrc: require("../assets/images/pants.png"),
+    rating: 0.5,
+  },
+  {
+    id: "6",
+    name: "Drishti Makhijani",
+    review:
+      "Review of the app, How the app is blah blah blah, I am very sleepy :pp",
+    imgSrc: require("../assets/images/shirt.png"),
+    rating: 5,
+  },
+];
