@@ -23,6 +23,9 @@ function CheckoutFloatingDiv(props) {
       disabled={disabled}
       onPress={() => {
         console.log("Checking Out");
+        props.navigation.navigate("SummaryPage", {
+          totalPrice: totalPrice,
+        });
       }}
     >
       <View

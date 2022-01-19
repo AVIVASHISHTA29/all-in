@@ -8,7 +8,7 @@ import MyCart from "../screens/MainApp/MyCart.js";
 import Profile from "../screens/MainApp/Profile.js";
 import ReviewScreen from "../screens/ProductPages/ReviewScreen.js";
 import AddAReview from "../screens/ProductPages/addAReview.js";
-
+import SummaryPage from "../screens/CheckoutPages/summaryPage";
 const Stack = createStackNavigator();
 
 function ProductStack(props) {
@@ -86,6 +86,11 @@ function ProductStack(props) {
       <Stack.Screen
         name="My Cart"
         component={MyCart}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SummaryPage"
+        component={SummaryPage}
         options={{ headerShown: false }}
       />
       <Stack.Screen

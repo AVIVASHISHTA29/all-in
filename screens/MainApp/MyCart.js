@@ -84,7 +84,7 @@ const MyCart = ({ navigation }) => {
               />
             )}
           /> */}
-          <CheckoutFloatingDiv />
+          <CheckoutFloatingDiv navigation={navigation} />
         </View>
       </View>
     </View>
