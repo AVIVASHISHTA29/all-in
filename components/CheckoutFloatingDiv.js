@@ -18,7 +18,13 @@ function CheckoutFloatingDiv(props) {
   }, [cartList]);
 
   return (
-    <TouchableOpacity style={styles.container} disabled={disabled} onPress={}>
+    <TouchableOpacity
+      style={styles.container}
+      disabled={disabled}
+      onPress={() => {
+        console.log("Checking Out");
+      }}
+    >
       <View
         style={{
           flexDirection: "row",
