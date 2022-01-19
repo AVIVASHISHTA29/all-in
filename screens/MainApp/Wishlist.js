@@ -5,6 +5,7 @@ import ProductLongCard from "../../components/ProductComponents/productLongCard"
 import ProductSmallCard from "../../components/ProductComponents/productSmallCard";
 import { Context } from "../../components/globalContext/globalContext";
 import { AntDesign } from "@expo/vector-icons";
+import { Feather } from "@expo/vector-icons";
 const Wishlist = ({ navigation }) => {
   // const list = myWishList;
   // const [wishList, setWishList] = useState(list);
@@ -56,7 +57,7 @@ const Wishlist = ({ navigation }) => {
             }}
           >
             <View style={{}}>
-              <AntDesign name="shoppingcart" size={48} color="black" />
+              <Feather name="bookmark" size={48} color="black" />
             </View>
             <Text
               style={[

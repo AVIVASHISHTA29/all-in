@@ -33,6 +33,7 @@ export default function StartingScreen({ navigation }) {
               color: "#fff",
               textAlign: "center",
               fontFamily: "Roboto-Bold",
+              fontSize: 18,
             }}
           >
             Get Started
@@ -71,11 +72,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     textAlign: "center",
     color: "#fff",
-    borderRadius: 50,
+    borderRadius: 20,
     borderWidth: 1,
-    fontSize: 16,
-    padding: 15,
-    width: 220,
+    fontSize: 32,
+    padding: 20,
+    width: 320,
     fontFamily: "Roboto-Black",
     fontWeight: "bold",
   },
