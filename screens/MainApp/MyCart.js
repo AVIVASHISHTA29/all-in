@@ -5,6 +5,7 @@ import ProductLongCard from "../../components/ProductComponents/productLongCard"
 import ProductSmallCard from "../../components/ProductComponents/productSmallCard";
 import { myRecommendations } from "../../data/data.js";
 import { AntDesign } from "@expo/vector-icons";
+import CheckoutFloatingDiv from "../../components/CheckoutFloatingDiv";
 const MyCart = ({ navigation }) => {
   const globalContext = useContext(Context);
   const { cartList, setCartList } = globalContext;
@@ -67,8 +68,8 @@ const MyCart = ({ navigation }) => {
           </View>
         )}
 
-        <View style={{ flex: 0.4 }}>
-          <Text style={styles.subHeading}>You Also Bought</Text>
+        <View style={{ flex: 0.25 }}>
+          {/* <Text style={styles.subHeading}>You Also Bought</Text>
           <FlatList
             nestedScrollEnabled
             horizontal={true}
@@ -82,7 +83,8 @@ const MyCart = ({ navigation }) => {
                 navigation={navigation}
               />
             )}
-          />
+          /> */}
+          <CheckoutFloatingDiv />
         </View>
       </View>
     </View>
