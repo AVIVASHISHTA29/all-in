@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, createContext } from "react";
 import * as SecureStore from "expo-secure-store";
-import { myCartList, myWishList } from "../../data/data";
+import { myCartList, myWishList, myReviewList } from "../../data/data";
 
 const Context = createContext();
 
@@ -12,6 +12,7 @@ const Provider = ({ children }) => {
   const list = myWishList;
   const [wishList, setWishList] = useState(list);
   const [cartList, setCartList] = useState(myCartList);
+  const [reviewList, setReviewList] = useState(myReviewList);
   const setToken = async (token) => {
     await SecureStore.setItemAsync("token", token);
   };
@@ -53,6 +54,8 @@ const Provider = ({ children }) => {
     setWishList,
     cartList,
     setCartList,
+    reviewList,
+    setReviewList,
   };
 
   return <Context.Provider value={globalContext}>{children}</Context.Provider>;

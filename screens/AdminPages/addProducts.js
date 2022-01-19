@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import MultiSelect from "react-native-multiple-select";
-import { Ionicons, AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { Switch, TextInput } from "react-native-gesture-handler";
 import { useContext, useState } from "react";
 import { Context } from "../../components/globalContext/globalContext";

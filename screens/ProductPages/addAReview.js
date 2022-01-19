@@ -13,8 +13,11 @@ import Slider from "@react-native-community/slider";
 import Star from "react-native-star-view";
 import { AntDesign } from "@expo/vector-icons";
 import { showMessage } from "react-native-flash-message";
+import { Context } from "../../components/globalContext/globalContext";
 
 export default function AddAReview() {
+  const globalContext = useContext(Context);
+  const { reviewList, setReviewList } = globalContext;
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   return (
@@ -30,6 +33,7 @@ export default function AddAReview() {
         </Text>
         <Slider
           style={{ width: "100%", height: 40 }}
+          value={rating}
           minimumValue={0}
           maximumValue={5}
           step={0.5}
@@ -62,6 +66,18 @@ export default function AddAReview() {
                   "Your review was successfully added to the product!",
                 type: "success",
               });
+              setReviewList([
+                ...reviewList,
+                {
+                  id: "101" + review.length.toString,
+                  name: "Testing Name",
+                  review: review,
+                  imgSrc: require("../../assets/images/logo.png"),
+                  rating: rating,
+                },
+              ]);
+              setReview("");
+              setRating(0);
             }}
           >
             <AntDesign name="plus" size={30} color="#fff" />

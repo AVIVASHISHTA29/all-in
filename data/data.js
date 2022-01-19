@@ -327,7 +327,7 @@ export const collectionList = [
   },
 ];
 
-export const reviewList = [
+export const myReviewList = [
   {
     id: "1",
     name: "Name",

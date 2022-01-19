@@ -17,13 +17,14 @@ import ReviewCard from "../../components/ReviewCard";
 import SearchBarComponent from "../../components/searchBar";
 import { showMessage } from "react-native-flash-message";
 import shareProduct from "../../components/functions/Share/sharingProducts";
-import { myWishList, reviewList } from "../../data/data";
+import { myWishList } from "../../data/data";
 import Wishlist from "../MainApp/Wishlist";
 import { Context } from "../../components/globalContext/globalContext";
 
 export default function ProductPage({ route, navigation }) {
   const globalContext = useContext(Context);
-  const { wishList, setWishList, cartList, setCartList } = globalContext;
+  const { wishList, setWishList, cartList, setCartList, reviewList } =
+    globalContext;
 
   const updateSearch = (search) => {
     setSearch(search);

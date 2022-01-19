@@ -9,9 +9,10 @@ import {
 import { FlatList } from "react-native-gesture-handler";
 import { Context } from "../../components/globalContext/globalContext";
 import ReviewCard from "../../components/ReviewCard";
-import { reviewList } from "../../data/data";
 
 export default function ReviewScreen() {
+  const globalContext = useContext(Context);
+  const { reviewList } = globalContext;
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.heading}>Reviews ({reviewList.length})</Text>

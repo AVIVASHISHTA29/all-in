@@ -4,7 +4,7 @@ import { FlatList, StyleSheet, Text, View } from "react-native";
 import ProductLongCard from "../../components/ProductComponents/productLongCard";
 import ProductSmallCard from "../../components/ProductComponents/productSmallCard";
 import { Context } from "../../components/globalContext/globalContext";
-
+import { AntDesign } from "@expo/vector-icons";
 const Wishlist = ({ navigation }) => {
   // const list = myWishList;
   // const [wishList, setWishList] = useState(list);
@@ -21,27 +21,54 @@ const Wishlist = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.heading}>Your Wishlist</Text>
       <View style={{ flex: 1 }}>
-        <FlatList
-          nestedScrollEnabled
-          style={{ marginBottom: 20, flex: 1, marginTop: 10 }}
-          keyExtractor={(item) => item.id}
-          data={wishList}
-          renderItem={({ item }) => (
-            <ProductLongCard
-              id={item.id}
-              title={item.title}
-              price={item.price}
-              size={item.size}
-              inStock={item.inStock}
-              image={item.image}
-              rating={item.rating}
-              navigation={navigation}
-              deleteItem={deleteItemWish}
-              showDeleteButton={true}
-              showAddToCartButton={true}
-            />
-          )}
-        />
+        {wishList.length > 0 ? (
+          <FlatList
+            nestedScrollEnabled
+            style={{ marginBottom: 20, flex: 1, marginTop: 10 }}
+            keyExtractor={(item) => item.id}
+            data={wishList}
+            renderItem={({ item }) => (
+              <ProductLongCard
+                id={item.id}
+                title={item.title}
+                price={item.price}
+                size={item.size}
+                inStock={item.inStock}
+                image={item.image}
+                rating={item.rating}
+                navigation={navigation}
+                deleteItem={deleteItemWish}
+                showDeleteButton={true}
+                showAddToCartButton={true}
+              />
+            )}
+          />
+        ) : (
+          <View
+            style={{
+              textAlign: "center",
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+              margin: 20,
+              marginTop: "auto",
+              marginBottom: "auto",
+            }}
+          >
+            <View style={{}}>
+              <AntDesign name="shoppingcart" size={48} color="black" />
+            </View>
+            <Text
+              style={[
+                styles.subHeading,
+                { marginTop: 20, color: "#000", textAlign: "center" },
+              ]}
+            >
+              Your Wishlist is Empty
+            </Text>
+          </View>
+        )}
+
         <View style={{ flex: 0.4 }}>
           <Text style={styles.subHeading}>You May Also Like</Text>
           <FlatList
