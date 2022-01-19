@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-import { Ionicons, AntDesign } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 import { useContext, useState } from "react";
 import { Context } from "../../components/globalContext/globalContext";

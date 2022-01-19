@@ -1,14 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Context } from "../../components/globalContext/globalContext";
 import ProductLongCard from "../../components/ProductComponents/productLongCard";
 import ProductSmallCard from "../../components/ProductComponents/productSmallCard";
 import { myCartList, myRecommendations } from "../../data/data.js";
 const MyCart = ({ navigation }) => {
-  const [productList, setProductList] = useState(myCartList);
-
+  const globalContext = useContext(Context);
+  const { cartList, setCartList } = globalContext;
   const deleteItem = (id) => {
-    setProductList((productList) => {
-      return productList.filter((item) => item.id != id);
+    setCartList((cartList) => {
+      return cartList.filter((item) => item.id != id);
     });
   };
 
@@ -20,7 +21,7 @@ const MyCart = ({ navigation }) => {
           nestedScrollEnabled
           style={{ marginBottom: 20, flex: 1, marginTop: 10 }}
           keyExtractor={(item) => item.id}
-          data={productList}
+          data={cartList}
           renderItem={({ item }) => (
             <ProductLongCard
               id={item.id}

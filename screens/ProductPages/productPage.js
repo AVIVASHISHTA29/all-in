@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import {
   Button,
   Image,
@@ -17,9 +17,14 @@ import ReviewCard from "../../components/ReviewCard";
 import SearchBarComponent from "../../components/searchBar";
 import { showMessage } from "react-native-flash-message";
 import shareProduct from "../../components/functions/Share/sharingProducts";
-import { reviewList } from "../../data/data";
+import { myWishList, reviewList } from "../../data/data";
+import Wishlist from "../MainApp/Wishlist";
+import { Context } from "../../components/globalContext/globalContext";
 
 export default function ProductPage({ route, navigation }) {
+  const globalContext = useContext(Context);
+  const { wishList, setWishList, cartList, setCartList } = globalContext;
+
   const updateSearch = (search) => {
     setSearch(search);
   };
@@ -140,6 +145,18 @@ export default function ProductPage({ route, navigation }) {
                     "This item was successfully added to your wish list!",
                   type: "success",
                 });
+                setWishList([
+                  ...wishList,
+                  {
+                    id: route.params.id,
+                    title: route.params.title,
+                    price: route.params.price,
+                    size: route.params.size,
+                    rating: route.params.rating,
+                    inStock: route.params.inStockBool,
+                    image: route.params.img,
+                  },
+                ]);
               }}
             >
               <Text
@@ -166,6 +183,19 @@ export default function ProductPage({ route, navigation }) {
                     "This item was successfully added to your cart! Happy Shopping !",
                   type: "success",
                 });
+
+                setCartList([
+                  ...cartList,
+                  {
+                    id: route.params.id,
+                    title: route.params.title,
+                    price: route.params.price,
+                    size: route.params.size,
+                    rating: route.params.rating,
+                    inStock: route.params.inStockBool,
+                    image: route.params.img,
+                  },
+                ]);
               }}
             >
               <Text
@@ -206,7 +236,7 @@ export default function ProductPage({ route, navigation }) {
               style={{
                 textAlign: "center",
                 alignItems: "center",
-                marginBottom: 50,
+                marginBottom: 5,
                 padding: 10,
                 justifyContent: "center",
                 backgroundColor: "#C4C4C4",
@@ -216,6 +246,22 @@ export default function ProductPage({ route, navigation }) {
               <Text style={{ fontSize: 18, fontWeight: "600" }}>
                 {" "}
                 View More
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                textAlign: "center",
+                alignItems: "center",
+                marginBottom: 50,
+                padding: 10,
+                justifyContent: "center",
+                backgroundColor: "#C4C4C4",
+              }}
+              onPress={() => navigation.navigate("AddAReview")}
+            >
+              <Text style={{ fontSize: 18, fontWeight: "600" }}>
+                {" "}
+                Add A New Review
               </Text>
             </TouchableOpacity>
           </View>

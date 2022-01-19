@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { myWishList, myRecommendations } from "../../data/data";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import ProductLongCard from "../../components/ProductComponents/productLongCard";
 import ProductSmallCard from "../../components/ProductComponents/productSmallCard";
+import { Context } from "../../components/globalContext/globalContext";
 
 const Wishlist = ({ navigation }) => {
-  const list = myWishList;
-  const [wishList, setWishList] = useState(list);
+  // const list = myWishList;
+  // const [wishList, setWishList] = useState(list);
+  const globalContext = useContext(Context);
+  const { wishList, setWishList } = globalContext;
 
   const deleteItemWish = (id) => {
     setWishList((wishList) => {

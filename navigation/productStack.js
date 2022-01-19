@@ -7,6 +7,7 @@ import Wishlist from "../screens/MainApp/Wishlist.js";
 import MyCart from "../screens/MainApp/MyCart.js";
 import Profile from "../screens/MainApp/Profile.js";
 import ReviewScreen from "../screens/ProductPages/ReviewScreen.js";
+import AddAReview from "../screens/ProductPages/addAReview.js";
 
 const Stack = createStackNavigator();
 
@@ -52,6 +53,20 @@ function ProductStack(props) {
       <Stack.Screen
         name="Reviews"
         component={ReviewScreen}
+        options={{
+          headerLeftContainerStyle: { paddingLeft: 10 },
+          headerBackTitleVisible: false,
+          headerStyle: {
+            elevation: 0, // remove shadow on Android
+            shadowOpacity: 0, // remove shadow on iOS
+            borderBottomWidth: 0, // Just in case.
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="AddAReview"
+        component={AddAReview}
         options={{
           headerLeftContainerStyle: { paddingLeft: 10 },
           headerBackTitleVisible: false,

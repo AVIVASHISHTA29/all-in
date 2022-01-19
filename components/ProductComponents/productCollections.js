@@ -3,11 +3,15 @@ import { FlatList } from "react-native-gesture-handler";
 import Star from "react-native-star-view";
 import { showMessage } from "react-native-flash-message";
 import shareProduct from "../functions/Share/sharingProducts";
+import { useContext } from "react";
+import { Context } from "../globalContext/globalContext";
 
 export default function ProductCollection(props) {
+  const globalContext = useContext(Context);
+  const { wishList, setWishList, cartList, setCartList } = globalContext;
   const collectionList = [
     {
-      id: "1",
+      id: "111",
       title: "Product Title",
       image: require("../../assets/images/default.png"),
       price: "2300",
@@ -16,7 +20,7 @@ export default function ProductCollection(props) {
       inStock: false,
     },
     {
-      id: "2",
+      id: "21",
       title: "Product Title 2",
       image: require("../../assets/images/default.png"),
       price: "2500",
@@ -25,7 +29,7 @@ export default function ProductCollection(props) {
       inStock: true,
     },
     {
-      id: "3",
+      id: "31",
       title: "Product Title 3",
       image: require("../../assets/images/default.png"),
       price: "1500",
@@ -34,7 +38,7 @@ export default function ProductCollection(props) {
       inStock: false,
     },
     {
-      id: "4",
+      id: "41",
       title: "Product Title 4",
       image: require("../../assets/images/default.png"),
       price: "1200",
@@ -43,7 +47,7 @@ export default function ProductCollection(props) {
       inStock: false,
     },
     {
-      id: "5",
+      id: "51",
       title: "Product Title 5",
       image: require("../../assets/images/default.png"),
       price: "2250",
@@ -52,7 +56,7 @@ export default function ProductCollection(props) {
       inStock: true,
     },
     {
-      id: "6",
+      id: "61",
       title: "Product Title 6",
       image: require("../../assets/images/default.png"),
       price: "2550",
@@ -61,7 +65,7 @@ export default function ProductCollection(props) {
       inStock: false,
     },
     {
-      id: "7",
+      id: "71",
       title: "Product Title 7",
       image: require("../../assets/images/default.png"),
       price: "3200",
@@ -129,6 +133,18 @@ export default function ProductCollection(props) {
                         "This item was successfully added to your wish list!",
                       type: "success",
                     });
+                    setWishList([
+                      ...wishList,
+                      {
+                        id: item.id,
+                        title: item.title,
+                        price: item.price,
+                        size: item.size,
+                        rating: item.rating,
+                        inStock: item.inStock,
+                        image: item.image,
+                      },
+                    ]);
                   }}
                 >
                   <Image
@@ -146,6 +162,18 @@ export default function ProductCollection(props) {
                         "This item was successfully added to your cart! Happy Shopping !",
                       type: "success",
                     });
+                    setCartList([
+                      ...cartList,
+                      {
+                        id: item.id,
+                        title: item.title,
+                        price: item.price,
+                        size: item.size,
+                        rating: item.rating,
+                        inStock: item.inStock,
+                        image: item.image,
+                      },
+                    ]);
                   }}
                 >
                   <Image

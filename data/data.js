@@ -1,4 +1,4 @@
-export const myWishList = [
+export var myWishList = [
   {
     id: "1",
     title: "Product Title 1 WishList",
@@ -65,7 +65,7 @@ export const myWishList = [
 ];
 export const myOrderList = [
   {
-    id: "1",
+    id: "11",
     title: "Product Title",
     price: "2200",
     size: "M",
@@ -74,7 +74,7 @@ export const myOrderList = [
     image: require("../assets/images/shoe.png"),
   },
   {
-    id: "2",
+    id: "12",
     title: "Product Title 2",
     price: "2500",
     size: "M",
@@ -83,7 +83,7 @@ export const myOrderList = [
     image: require("../assets/images/shirt.png"),
   },
   {
-    id: "3",
+    id: "13",
     title: "Product Title 3",
     price: "2200",
     size: "Xl",
@@ -92,7 +92,7 @@ export const myOrderList = [
     image: require("../assets/images/pants.png"),
   },
   {
-    id: "4",
+    id: "14",
     title: "Product Title 4",
     price: "2200",
     size: "M",
@@ -101,7 +101,7 @@ export const myOrderList = [
     image: require("../assets/images/shoe.png"),
   },
   {
-    id: "5",
+    id: "15",
     title: "Product Title 5",
     price: "2200",
     size: "M",
@@ -110,7 +110,7 @@ export const myOrderList = [
     image: require("../assets/images/pants.png"),
   },
   {
-    id: "6",
+    id: "16",
     title: "Product Title 6",
     price: "2200",
     size: "M",
@@ -119,7 +119,7 @@ export const myOrderList = [
     image: require("../assets/images/tank.png"),
   },
   {
-    id: "7",
+    id: "17",
     title: "Product Title 7",
     price: "2200",
     size: "Sm",
@@ -131,7 +131,7 @@ export const myOrderList = [
 
 export const myRecommendations = [
   {
-    id: "1",
+    id: "21",
     title: "Recommended Title 1",
     price: "2200",
     size: "M",
@@ -140,7 +140,7 @@ export const myRecommendations = [
     image: require("../assets/images/pants.png"),
   },
   {
-    id: "2",
+    id: "22",
     title: "Product Title 2",
     price: "2500",
     size: "M",
@@ -149,7 +149,7 @@ export const myRecommendations = [
     image: require("../assets/images/shirt.png"),
   },
   {
-    id: "3",
+    id: "23",
     title: "Product Title 3",
     price: "2200",
     size: "Xl",
@@ -158,7 +158,7 @@ export const myRecommendations = [
     image: require("../assets/images/shoe.png"),
   },
   {
-    id: "4",
+    id: "24",
     title: "Product Title 4",
     price: "2200",
     size: "M",
@@ -167,7 +167,7 @@ export const myRecommendations = [
     image: require("../assets/images/shoe.png"),
   },
   {
-    id: "5",
+    id: "25",
     title: "Product Title 5",
     price: "2200",
     size: "M",
@@ -176,7 +176,7 @@ export const myRecommendations = [
     image: require("../assets/images/pants.png"),
   },
   {
-    id: "6",
+    id: "26",
     title: "Product Title 6",
     price: "2200",
     size: "M",
@@ -185,7 +185,7 @@ export const myRecommendations = [
     image: require("../assets/images/tank.png"),
   },
   {
-    id: "7",
+    id: "27",
     title: "Product Title 7",
     price: "2200",
     size: "Sm",
@@ -197,7 +197,7 @@ export const myRecommendations = [
 
 export const myCartList = [
   {
-    id: "1",
+    id: "31",
     title: "My Cart Product Title",
     price: "2200",
     size: "M",
@@ -206,7 +206,7 @@ export const myCartList = [
     image: require("../assets/images/shoe.png"),
   },
   {
-    id: "2",
+    id: "32",
     title: "Product Title 2",
     price: "2500",
     size: "M",
@@ -215,7 +215,7 @@ export const myCartList = [
     image: require("../assets/images/shirt.png"),
   },
   {
-    id: "3",
+    id: "33",
     title: "Product Title 3",
     price: "2200",
     size: "Xl",
@@ -224,7 +224,7 @@ export const myCartList = [
     image: require("../assets/images/pants.png"),
   },
   {
-    id: "4",
+    id: "34",
     title: "Product Title 4",
     price: "2200",
     size: "M",
@@ -233,7 +233,7 @@ export const myCartList = [
     image: require("../assets/images/shoe.png"),
   },
   {
-    id: "5",
+    id: "35",
     title: "Product Title 5",
     price: "2200",
     size: "M",
@@ -242,7 +242,7 @@ export const myCartList = [
     image: require("../assets/images/pants.png"),
   },
   {
-    id: "6",
+    id: "36",
     title: "Product Title 6",
     price: "2200",
     size: "M",
@@ -251,7 +251,7 @@ export const myCartList = [
     image: require("../assets/images/tank.png"),
   },
   {
-    id: "7",
+    id: "37",
     title: "Product Title 7",
     price: "2200",
     size: "Sm",
@@ -263,7 +263,7 @@ export const myCartList = [
 
 export const collectionList = [
   {
-    id: "1",
+    id: "41",
     title: "Product Title",
     image: require("../assets/images/default.png"),
     price: "2200",
@@ -272,7 +272,7 @@ export const collectionList = [
     inStock: false,
   },
   {
-    id: "2",
+    id: "42",
     title: "Product Title 2",
     image: require("../assets/images/default.png"),
     price: "2500",
@@ -281,7 +281,7 @@ export const collectionList = [
     inStock: true,
   },
   {
-    id: "3",
+    id: "43",
     title: "Product Title 3",
     image: require("../assets/images/default.png"),
     price: "1500",
@@ -290,7 +290,7 @@ export const collectionList = [
     inStock: false,
   },
   {
-    id: "4",
+    id: "44",
     title: "Product Title 4",
     image: require("../assets/images/default.png"),
     price: "1200",
@@ -299,7 +299,7 @@ export const collectionList = [
     inStock: false,
   },
   {
-    id: "5",
+    id: "45",
     title: "Product Title 5",
     image: require("../assets/images/default.png"),
     price: "2250",
@@ -308,7 +308,7 @@ export const collectionList = [
     inStock: true,
   },
   {
-    id: "6",
+    id: "46",
     title: "Product Title 6",
     image: require("../assets/images/default.png"),
     price: "2550",
@@ -317,7 +317,7 @@ export const collectionList = [
     inStock: false,
   },
   {
-    id: "7",
+    id: "47",
     title: "Product Title 7",
     image: require("../assets/images/default.png"),
     price: "3200",

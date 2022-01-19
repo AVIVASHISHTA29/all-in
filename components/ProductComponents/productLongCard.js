@@ -1,6 +1,10 @@
+import { useContext } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { showMessage } from "react-native-flash-message";
+import { Context } from "../globalContext/globalContext";
 function ProductLongCard(props) {
+  const globalContext = useContext(Context);
+  const { wishList, setWishList, cartList, setCartList } = globalContext;
   return (
     <TouchableOpacity
       style={styles.productContainer}
@@ -70,6 +74,18 @@ function ProductLongCard(props) {
                       "This item was successfully added to your wish list!",
                     type: "success",
                   });
+                  setWishList([
+                    ...wishList,
+                    {
+                      id: props.id,
+                      title: props.title,
+                      price: props.price,
+                      size: props.size,
+                      rating: props.rating,
+                      inStock: props.inStock,
+                      image: props.image,
+                    },
+                  ]);
                 }}
               >
                 <Image
@@ -91,6 +107,18 @@ function ProductLongCard(props) {
                       "This item was successfully added to your cart! Happy Shopping !",
                     type: "success",
                   });
+                  setCartList([
+                    ...cartList,
+                    {
+                      id: props.id,
+                      title: props.title,
+                      price: props.price,
+                      size: props.size,
+                      rating: props.rating,
+                      inStock: props.inStock,
+                      image: props.image,
+                    },
+                  ]);
                 }}
               >
                 <Image
