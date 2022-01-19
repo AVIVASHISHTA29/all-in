@@ -5,7 +5,7 @@ import ProductPage from "../screens/ProductPages/productPage";
 import HomePage from "../screens/MainApp/HomePage.js";
 import Wishlist from "../screens/MainApp/Wishlist.js";
 import MyCart from "../screens/MainApp/MyCart.js";
-import Profile from "../screens/MainApp/Profile.js";
+import Profile from "../screens/MainApp/Profile/Profile.js";
 import ReviewScreen from "../screens/ProductPages/ReviewScreen.js";
 import AddAReview from "../screens/ProductPages/addAReview.js";
 import SummaryPage from "../screens/CheckoutPages/summaryPage";

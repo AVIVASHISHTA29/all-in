@@ -43,21 +43,17 @@ function CheckoutFloatingDiv(props) {
         >
           Checkout
         </Text>
-        <AntDesign name="check" size={32} color="#fff" />
+        <AntDesign name="arrowright" size={32} color="#fff" />
       </View>
       <View
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
+          marginTop: 5,
         }}
       >
-        <Text
-          style={[
-            styles.subHeading,
-            { color: "#fff", textAlign: "left", marginTop: 5 },
-          ]}
-        >
+        <Text style={[styles.subHeading, { color: "#fff", textAlign: "left" }]}>
           Total Items :
         </Text>
         <Text
@@ -71,14 +67,10 @@ function CheckoutFloatingDiv(props) {
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
+          marginTop: 5,
         }}
       >
-        <Text
-          style={[
-            styles.subHeading,
-            { color: "#fff", textAlign: "left", marginTop: 5 },
-          ]}
-        >
+        <Text style={[styles.subHeading, { color: "#fff", textAlign: "left" }]}>
           Total Amount :
         </Text>
         <Text

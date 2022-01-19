@@ -5,7 +5,7 @@ import ProductPage from "../screens/ProductPages/productPage";
 import HomePage from "../screens/MainApp/HomePage.js";
 import MyCart from "../screens/MainApp/MyCart.js";
 import Wishlist from "../screens/MainApp/Wishlist.js";
-import Profile from "../screens/MainApp/Profile.js";
+import Profile from "../screens/MainApp/Profile/Profile.js";
 
 const Stack = createStackNavigator();
 

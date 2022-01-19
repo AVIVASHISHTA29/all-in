@@ -6,7 +6,7 @@ import {
 } from "@react-navigation/drawer";
 import RightNavButtons from "../components/rightNavButtons";
 import HomePage from "../screens/MainApp/HomePage";
-import Profile from "../screens/MainApp/Profile";
+import Profile from "../screens/MainApp/Profile/Profile";
 import Wishlist from "../screens/MainApp/Wishlist";
 import ProductPage from "../screens/ProductPages/productPage";
 import MyOrders from "../screens/MainApp/MyOrdersPage";
