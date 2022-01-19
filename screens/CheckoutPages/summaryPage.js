@@ -13,8 +13,35 @@ import ProductSmallCard from "../../components/ProductComponents/productSmallCar
 import { AntDesign } from "@expo/vector-icons";
 import { useContext, useState } from "react";
 import { Context } from "../../components/globalContext/globalContext.js";
+// import RazorpayCheckout from "react-native-razorpay";
 
 const SummaryPage = ({ route, navigation }) => {
+  function paymentProcess() {
+    var options = {
+      description: "Credits towards consultation",
+      image: "https://i.imgur.com/3g7nmJC.png",
+      currency: "INR",
+      key: "rzp_test_Cvgmp7sLxim68t", // Your api key
+      amount: { finalTotal },
+      name: "foo",
+      prefill: {
+        email: "void@razorpay.com",
+        contact: "9191919191",
+        name: "Razorpay Software",
+      },
+      theme: { color: "#000" },
+    };
+    // RazorpayCheckout.open(options)
+    //   .then((data) => {
+    //     // handle success
+    //     alert(`Success: ${data.razorpay_payment_id}`);
+    //   })
+    //   .catch((error) => {
+    //     // handle failure
+    //     alert(`Error: ${error.code} | ${error.description}`);
+    //   });
+  }
+
   const globalContext = useContext(Context);
   const { cartList, setCartList } = globalContext;
   const [taxes, setTaxes] = useState(0.18 * parseInt(route.params.totalPrice));
@@ -110,7 +137,7 @@ const SummaryPage = ({ route, navigation }) => {
             />
           )}
         />
-        <TouchableOpacity style={[styles.btn]}>
+        <TouchableOpacity style={[styles.btn]} onPress={paymentProcess}>
           <Text
             style={
               ([styles.heading],

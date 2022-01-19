@@ -9,6 +9,7 @@ import Profile from "../screens/MainApp/Profile.js";
 import ReviewScreen from "../screens/ProductPages/ReviewScreen.js";
 import AddAReview from "../screens/ProductPages/addAReview.js";
 import SummaryPage from "../screens/CheckoutPages/summaryPage";
+import CheckOutPage from "../screens/CheckoutPages/checkoutPage.js";
 const Stack = createStackNavigator();
 
 function ProductStack(props) {
@@ -91,6 +92,11 @@ function ProductStack(props) {
       <Stack.Screen
         name="SummaryPage"
         component={SummaryPage}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="CheckOutPage"
+        component={CheckOutPage}
         options={{ headerShown: false }}
       />
       <Stack.Screen
