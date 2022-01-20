@@ -10,6 +10,7 @@ import ReviewScreen from "../screens/ProductPages/ReviewScreen.js";
 import AddAReview from "../screens/ProductPages/addAReview.js";
 import SummaryPage from "../screens/CheckoutPages/summaryPage";
 import CheckOutPage from "../screens/CheckoutPages/checkoutPage.js";
+import EditProfile from "../screens/MainApp/Profile/editProfile.js";
 const Stack = createStackNavigator();
 
 function ProductStack(props) {
@@ -102,6 +103,11 @@ function ProductStack(props) {
       <Stack.Screen
         name="Profile"
         component={Profile}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

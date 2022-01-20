@@ -52,7 +52,11 @@ const Profile = ({ navigation }) => {
             style={{ width: 100, height: 100 }}
           />
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("EditProfile");
+          }}
+        >
           <Text
             style={{
               marginTop: 10,

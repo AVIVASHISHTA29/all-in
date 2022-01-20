@@ -5,79 +5,90 @@ import { showMessage } from "react-native-flash-message";
 import shareProduct from "../functions/Share/sharingProducts";
 import { useContext } from "react";
 import { Context } from "../globalContext/globalContext";
-
+import { Ionicons } from "@expo/vector-icons";
 export default function ProductCollection(props) {
   const globalContext = useContext(Context);
   const { wishList, setWishList, cartList, setCartList } = globalContext;
   const collectionList = [
     {
-      id: "111",
-      title: "Product Title",
-      image: require("../../assets/images/default.png"),
-      price: "2300",
+      id: "31",
+      title: "Shoe 1",
+      price: "2200",
+      size: "M",
+      inStock: true,
+      rating: 3,
+      image: require("../../assets/images/shoe.png"),
+    },
+    {
+      id: "32",
+      title: "Shirt 1",
+      price: "2500",
+      size: "M",
+      rating: 4.5,
+      inStock: true,
+      image: require("../../assets/images/shirt.png"),
+    },
+    {
+      id: "33",
+      title: "Trousers 3",
+      price: "2200",
+      size: "Xl",
+      rating: 4,
+      inStock: false,
+      image: require("../../assets/images/pants.png"),
+    },
+    {
+      id: "34",
+      title: "Product Title 4",
+      price: "2200",
+      size: "M",
+      rating: 4.5,
+      inStock: true,
+      image: require("../../assets/images/shoe.png"),
+    },
+    {
+      id: "35",
+      title: "Product Title 5",
+      price: "2200",
+      size: "M",
+      rating: 1.5,
+      inStock: false,
+      image: require("../../assets/images/pants.png"),
+    },
+    {
+      id: "36",
+      title: "Tank 6",
+      price: "2200",
+      size: "M",
+      rating: 2.5,
+      inStock: true,
+      image: require("../../assets/images/tank.png"),
+    },
+    {
+      id: "37",
+      title: "Shirt 7",
+      price: "2200",
       size: "Sm",
       rating: 4,
       inStock: false,
-    },
-    {
-      id: "21",
-      title: "Product Title 2",
-      image: require("../../assets/images/default.png"),
-      price: "2500",
-      size: "Sm",
-      rating: 3.5,
-      inStock: true,
-    },
-    {
-      id: "31",
-      title: "Product Title 3",
-      image: require("../../assets/images/default.png"),
-      price: "1500",
-      size: "M",
-      rating: 4.5,
-      inStock: false,
-    },
-    {
-      id: "41",
-      title: "Product Title 4",
-      image: require("../../assets/images/default.png"),
-      price: "1200",
-      size: "Xl",
-      rating: 2.5,
-      inStock: false,
-    },
-    {
-      id: "51",
-      title: "Product Title 5",
-      image: require("../../assets/images/default.png"),
-      price: "2250",
-      size: "M",
-      rating: 3.5,
-      inStock: true,
-    },
-    {
-      id: "61",
-      title: "Product Title 6",
-      image: require("../../assets/images/default.png"),
-      price: "2550",
-      size: "L",
-      rating: 3.5,
-      inStock: false,
-    },
-    {
-      id: "71",
-      title: "Product Title 7",
-      image: require("../../assets/images/default.png"),
-      price: "3200",
-      size: "L",
-      rating: 4.5,
-      inStock: true,
+      image: require("../../assets/images/shirt.png"),
     },
   ];
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Fall Collection</Text>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Text style={styles.heading}>Fall Collection</Text>
+        <TouchableOpacity>
+          <Ionicons name="filter" size={24} color="black" />
+        </TouchableOpacity>
+      </View>
       <FlatList
         style={{ marginBottom: 120, marginTop: 10 }}
         numColumns={2}
@@ -102,7 +113,7 @@ export default function ProductCollection(props) {
                 source={item.image}
                 style={{
                   width: 100,
-                  height: 220,
+                  height: 150,
                   marginLeft: "auto",
                   marginRight: "auto",
                 }}

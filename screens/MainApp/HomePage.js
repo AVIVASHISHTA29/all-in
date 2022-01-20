@@ -8,6 +8,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from "react-native";
+
 import ProductCollection from "../../components/ProductComponents/productCollections";
 import SearchBarComponent from "../../components/searchBar";
 
@@ -20,6 +21,7 @@ export default function HomePage({ navigation }) {
     >
       <SafeAreaView style={styles.container}>
         <SearchBarComponent />
+
         <ProductCollection navigation={navigation} />
       </SafeAreaView>
     </TouchableWithoutFeedback>
