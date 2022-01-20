@@ -43,7 +43,7 @@ export default function AddAReview() {
             setRating(value);
           }}
         />
-        <Star score={rating} style={styles.starStyle} />
+        <Star score={rating ? rating : 3.5} style={styles.starStyle} />
         <TextInput
           multiline
           numberOfLines={10}

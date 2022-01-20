@@ -8,15 +8,15 @@ function ProductSmallCard(props) {
         props.navigation.navigate("Product", {
           title: props.title,
           price: props.price,
-          inStockBool: props.inStock,
-          img: props.image,
+          inStock: props.inStock,
+          imgUrl: props.imgUrl,
           rating: props.rating,
         });
       }}
     >
       <Image
         resizeMode="contain"
-        source={props.image}
+        source={{ uri: props.image }}
         style={{ width: 70, height: 70 }}
       />
       <Text style={styles.title}>{props.title}</Text>

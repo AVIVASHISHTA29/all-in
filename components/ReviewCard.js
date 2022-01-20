@@ -22,7 +22,10 @@ function ReviewCard(props) {
       </View>
       <View style={{ flex: 1 }}>
         <Text style={styles.title}>{props.name}</Text>
-        <Star score={props.rating} style={styles.starStyle} />
+        <Star
+          score={props.rating ? props.rating : 3.5}
+          style={styles.starStyle}
+        />
         <Text style={{ marginHorizontal: 10, marginBottom: 10 }}>
           {props.review}
         </Text>

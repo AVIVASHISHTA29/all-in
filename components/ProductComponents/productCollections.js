@@ -8,72 +8,14 @@ import { Context } from "../globalContext/globalContext";
 import { Ionicons } from "@expo/vector-icons";
 export default function ProductCollection(props) {
   const globalContext = useContext(Context);
-  const { wishList, setWishList, cartList, setCartList } = globalContext;
-  const collectionList = [
-    {
-      id: "31",
-      title: "Shoe 1",
-      price: "2200",
-      size: "M",
-      inStock: true,
-      rating: 3,
-      image: require("../../assets/images/shoe.png"),
-    },
-    {
-      id: "32",
-      title: "Shirt 1",
-      price: "2500",
-      size: "M",
-      rating: 4.5,
-      inStock: true,
-      image: require("../../assets/images/shirt.png"),
-    },
-    {
-      id: "33",
-      title: "Trousers 3",
-      price: "2200",
-      size: "Xl",
-      rating: 4,
-      inStock: false,
-      image: require("../../assets/images/pants.png"),
-    },
-    {
-      id: "34",
-      title: "Product Title 4",
-      price: "2200",
-      size: "M",
-      rating: 4.5,
-      inStock: true,
-      image: require("../../assets/images/shoe.png"),
-    },
-    {
-      id: "35",
-      title: "Product Title 5",
-      price: "2200",
-      size: "M",
-      rating: 1.5,
-      inStock: false,
-      image: require("../../assets/images/pants.png"),
-    },
-    {
-      id: "36",
-      title: "Tank 6",
-      price: "2200",
-      size: "M",
-      rating: 2.5,
-      inStock: true,
-      image: require("../../assets/images/tank.png"),
-    },
-    {
-      id: "37",
-      title: "Shirt 7",
-      price: "2200",
-      size: "Sm",
-      rating: 4,
-      inStock: false,
-      image: require("../../assets/images/shirt.png"),
-    },
-  ];
+  const {
+    wishList,
+    setWishList,
+    cartList,
+    setCartList,
+    allProducts,
+    setAllProducts,
+  } = globalContext;
 
   return (
     <View style={styles.container}>
@@ -84,7 +26,7 @@ export default function ProductCollection(props) {
           alignItems: "center",
         }}
       >
-        <Text style={styles.heading}>Fall Collection</Text>
+        <Text style={styles.heading}>All Products</Text>
         <TouchableOpacity>
           <Ionicons name="filter" size={24} color="black" />
         </TouchableOpacity>
@@ -93,24 +35,27 @@ export default function ProductCollection(props) {
         style={{ marginBottom: 120, marginTop: 10 }}
         numColumns={2}
         keyExtractor={(item) => item.id}
-        data={collectionList}
+        data={allProducts}
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.productContainer}
             onPress={() => {
               props.navigation.navigate("Product", {
                 title: item.title,
-                img: item.image,
+                imgUrl: item.imgUrl,
                 price: item.price,
                 rating: item.rating,
-                inStockBool: item.inStock,
+                inStock: item.inStock,
+                description: item.description,
               });
             }}
           >
             <View style={{ flex: 1 }}>
               <Image
                 resizeMode="contain"
-                source={item.image}
+                source={{
+                  uri: item.imgUrl,
+                }}
                 style={{
                   width: 100,
                   height: 150,
@@ -120,7 +65,10 @@ export default function ProductCollection(props) {
               />
               <Text style={styles.title}>{item.title}</Text>
               <Text style={styles.price}>₹{item.price}</Text>
-              <Star score={item.rating} style={styles.starStyle} />
+              <Star
+                score={item.rating ? item.rating : 3.5}
+                style={styles.starStyle}
+              />
               <View
                 style={{
                   flexDirection: "row",
@@ -144,18 +92,10 @@ export default function ProductCollection(props) {
                         "This item was successfully added to your wish list!",
                       type: "success",
                     });
-                    setWishList([
-                      ...wishList,
-                      {
-                        id: item.id,
-                        title: item.title,
-                        price: item.price,
-                        size: item.size,
-                        rating: item.rating,
-                        inStock: item.inStock,
-                        image: item.image,
-                      },
-                    ]);
+                    setWishList([...wishList, item]);
+
+                    console.log("hi1");
+                    console.log(item);
                   }}
                 >
                   <Image
@@ -182,7 +122,7 @@ export default function ProductCollection(props) {
                         size: item.size,
                         rating: item.rating,
                         inStock: item.inStock,
-                        image: item.image,
+                        imgUrl: item.imgUrl,
                       },
                     ]);
                   }}

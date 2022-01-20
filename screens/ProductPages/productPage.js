@@ -65,8 +65,8 @@ export default function ProductPage({ route, navigation }) {
             <Image
               resizeMode="contain"
               source={
-                route.params.img
-                  ? route.params.img
+                route.params.imgUrl
+                  ? { uri: route.params.imgUrl }
                   : require("../../assets/images/default.png")
               }
               style={{
@@ -83,7 +83,7 @@ export default function ProductPage({ route, navigation }) {
               <Text
                 style={(styles.price, { marginHorizontal: 10, fontSize: 16 })}
               >
-                {route.params.inStockBool ? "In Stock" : "Out Of Stock"}
+                {route.params.inStock ? "In Stock" : "Out Of Stock"}
               </Text>
             </View>
             <View style={styles.sizeView}>
@@ -154,8 +154,8 @@ export default function ProductPage({ route, navigation }) {
                     price: route.params.price,
                     size: route.params.size,
                     rating: route.params.rating,
-                    inStock: route.params.inStockBool,
-                    image: route.params.img,
+                    inStock: route.params.inStock,
+                    imgUrl: route.params.imgUrl,
                   },
                 ]);
               }}
@@ -193,8 +193,8 @@ export default function ProductPage({ route, navigation }) {
                     price: route.params.price,
                     size: route.params.size,
                     rating: route.params.rating,
-                    inStock: route.params.inStockBool,
-                    image: route.params.img,
+                    inStock: route.params.inStock,
+                    imgUrl: route.params.imgUrl,
                   },
                 ]);
               }}
@@ -218,10 +218,7 @@ export default function ProductPage({ route, navigation }) {
           <View style={{}}>
             <Text style={styles.productSubHeading}>Product Details</Text>
             <Text style={styles.productDetails}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lacus
-              pharetra, tortor cum molestie habitant viverra eu, nunc gravida.
-              Ut suspendisse urna tortor lacus. Risus tortor phasellus arcu,
-              malesuada pulvinar donec quis non pretium.
+              {route.params.description}
             </Text>
             <Text style={styles.productSubHeading}>
               Reviews

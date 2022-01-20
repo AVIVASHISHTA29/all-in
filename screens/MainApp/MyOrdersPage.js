@@ -50,7 +50,7 @@ const MyOrders = ({ navigation }) => {
             }}
           >
             <View style={{}}>
-              <AntDesign name="shoppingcart" size={48} color="black" />
+              <AntDesign name="clockcircleo" size={48} color="black" />
             </View>
             <Text
               style={[

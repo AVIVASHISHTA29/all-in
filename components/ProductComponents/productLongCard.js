@@ -1,10 +1,16 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { showMessage } from "react-native-flash-message";
 import { Context } from "../globalContext/globalContext";
 function ProductLongCard(props) {
   const globalContext = useContext(Context);
   const { wishList, setWishList, cartList, setCartList } = globalContext;
+
+  useEffect(() => {
+    console.log("hi2");
+    console.log(props.imgUrl);
+  }, []);
+
   return (
     <TouchableOpacity
       style={styles.productContainer}
@@ -12,9 +18,10 @@ function ProductLongCard(props) {
         props.navigation.navigate("Product", {
           title: props.title,
           price: props.price,
-          inStockBool: props.inStock,
-          img: props.image,
+          inStock: props.inStock,
+          imgUrl: props.imgUrl,
           rating: props.rating,
+          description: props.description,
         });
       }}
     >
@@ -22,7 +29,7 @@ function ProductLongCard(props) {
         <View style={styles.imgView}>
           <Image
             resizeMode="contain"
-            source={props.image}
+            source={{ uri: props.imgUrl }}
             style={{
               marginLeft: "auto",
               marginRight: "auto",
@@ -36,7 +43,10 @@ function ProductLongCard(props) {
         <View style={styles.infoView}>
           <Text style={styles.title}>{props.title}</Text>
           <Text style={styles.price}>₹{props.price}</Text>
-          <Text style={styles.size}>Size: {props.size}</Text>
+          <Text style={styles.size}>
+            Size:
+            <Text style={{ textTransform: "uppercase" }}> {props.size}</Text>
+          </Text>
           <Text style={styles.size}>
             {props.inStock ? "In Stock" : "Out Of Stock"}
           </Text>
@@ -67,7 +77,6 @@ function ProductLongCard(props) {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => {
-                  console.log("Added to wish list!");
                   showMessage({
                     message: "Added To Your Wish List",
                     description:
@@ -83,9 +92,10 @@ function ProductLongCard(props) {
                       size: props.size,
                       rating: props.rating,
                       inStock: props.inStock,
-                      image: props.image,
+                      imgUrl: props.imgUrl,
                     },
                   ]);
+                  console.log("wishList\n");
                 }}
               >
                 <Image
@@ -116,7 +126,7 @@ function ProductLongCard(props) {
                       size: props.size,
                       rating: props.rating,
                       inStock: props.inStock,
-                      image: props.image,
+                      imgUrl: props.imgUrl,
                     },
                   ]);
                 }}

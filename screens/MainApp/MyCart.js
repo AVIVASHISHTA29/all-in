@@ -32,7 +32,7 @@ const MyCart = ({ navigation }) => {
                 price={item.price}
                 size={item.size}
                 inStock={item.inStock}
-                image={item.image}
+                imgUrl={item.imgUrl}
                 rating={item.rating}
                 navigation={navigation}
                 deleteItem={deleteItem}

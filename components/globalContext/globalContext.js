@@ -8,7 +8,7 @@ const Provider = ({ children }) => {
   const [domain, setDomain] = useState("http://localhost:8000");
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [userObj, setUserObj] = useState(true);
-  const [appSettings, setAppSettings] = useState({});
+  const [allProducts, setAllProducts] = useState({});
   const list = myWishList;
   const [wishList, setWishList] = useState(list);
   const [cartList, setCartList] = useState(myCartList);
@@ -17,8 +17,8 @@ const Provider = ({ children }) => {
     await SecureStore.setItemAsync("token", token);
   };
 
-  function initAppSettings() {
-    fetch(`${domain}/api/v1.0/app/settings`, {
+  function getData() {
+    fetch(`${domain}/api/v1.0/user/products`, {
       method: "GET",
     })
       .then((res) => {
@@ -30,7 +30,7 @@ const Provider = ({ children }) => {
       })
       .then((json) => {
         console.log(json);
-        setAppSettings(json);
+        setAllProducts(json);
       })
       .catch((error) => {
         console.log(error);
@@ -38,15 +38,13 @@ const Provider = ({ children }) => {
   }
 
   useEffect(() => {
-    initAppSettings();
+    getData();
   }, []);
 
   const globalContext = {
     domain,
     isLoggedIn,
     setIsLoggedIn,
-    appSettings,
-    setAppSettings,
     userObj,
     setUserObj,
     setToken,
@@ -56,6 +54,8 @@ const Provider = ({ children }) => {
     setCartList,
     reviewList,
     setReviewList,
+    allProducts,
+    setAllProducts,
   };
 
   return <Context.Provider value={globalContext}>{children}</Context.Provider>;
