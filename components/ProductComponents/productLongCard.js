@@ -20,8 +20,6 @@ function ProductLongCard(props) {
         props.navigation.navigate("Product", {
           productItem: props.productItem,
         });
-        console.log("item-");
-        console.log(props.productItem);
       }}
     >
       <View style={styles.flexContainer}>

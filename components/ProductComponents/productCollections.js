@@ -129,24 +129,7 @@ export default function ProductCollection(props) {
                 <TouchableOpacity
                   style={styles.btn2}
                   onPress={() => {
-                    showMessage({
-                      message: "Added To Your Cart",
-                      description:
-                        "This item was successfully added to your cart! Happy Shopping !",
-                      type: "success",
-                    });
-                    setCartList([
-                      ...cartList,
-                      {
-                        id: item.id,
-                        title: item.title,
-                        price: item.price,
-                        size: item.size,
-                        rating: item.rating,
-                        inStock: item.inStock,
-                        imgUrl: item.imgUrl,
-                      },
-                    ]);
+                    AddToCart(item, cartList, setCartList);
                   }}
                 >
                   <Image
