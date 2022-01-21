@@ -33,6 +33,7 @@ const MyCart = ({ navigation }) => {
                 showDeleteButton={true}
                 showAddToCartButton={false}
                 showAddToWishListButton={true}
+                showQuantityButton={true}
               />
             )}
           />

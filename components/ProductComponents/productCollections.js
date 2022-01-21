@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   RefreshControl,
+  Alert,
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import Star from "react-native-star-view";
@@ -15,6 +16,7 @@ import { Context } from "../globalContext/globalContext";
 import { Ionicons } from "@expo/vector-icons";
 
 import AddToWishlist from "../functions/addToWishlist";
+import AddToCart from "../functions/AddToCart";
 
 export default function ProductCollection(props) {
   const globalContext = useContext(Context);
@@ -27,7 +29,7 @@ export default function ProductCollection(props) {
     setAllProducts,
     domain,
   } = globalContext;
-
+  const [flag, setFlag] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(async () => {
     setRefreshing(true);

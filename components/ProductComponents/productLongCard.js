@@ -4,9 +4,11 @@ import { showMessage } from "react-native-flash-message";
 import AddToCart from "../functions/AddToCart";
 import AddToWishlist from "../functions/addToWishlist";
 import { Context } from "../globalContext/globalContext";
+import { AntDesign } from "@expo/vector-icons";
 function ProductLongCard(props) {
   const globalContext = useContext(Context);
   const { wishList, setWishList, cartList, setCartList } = globalContext;
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     console.log("hi2");
@@ -36,6 +38,47 @@ function ProductLongCard(props) {
               width: 100,
             }}
           />
+          {props.showQuantityButton ? (
+            <View
+              style={{
+                flexDirection: "row",
+                margin: 20,
+              }}
+            >
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => {
+                  if (quantity > 1) setQuantity(quantity - 1);
+                }}
+              >
+                <AntDesign name="minus" size={20} color="black" />
+              </TouchableOpacity>
+              <View
+                style={{
+                  backgroundColor: "#fff",
+                  borderColor: "#000",
+                  flex: 1,
+                  marginRight: 10,
+                  textAlign: "center",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                }}
+              >
+                <Text>{quantity}</Text>
+              </View>
+              <TouchableOpacity
+                style={styles.btn}
+                onPress={() => {
+                  setQuantity(quantity + 1);
+                }}
+              >
+                <AntDesign name="plus" size={20} color="black" />
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <></>
+          )}
         </View>
         <View style={styles.infoView}>
           <Text style={styles.title}>{props.productItem.title}</Text>
