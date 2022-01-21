@@ -6,20 +6,16 @@ function ProductSmallCard(props) {
       style={styles.container}
       onPress={() => {
         props.navigation.navigate("Product", {
-          title: props.title,
-          price: props.price,
-          inStock: props.inStock,
-          imgUrl: props.imgUrl,
-          rating: props.rating,
+          productItem: props.productItem,
         });
       }}
     >
       <Image
         resizeMode="contain"
-        source={{ uri: props.image }}
+        source={{ uri: props.productItem.imgUrl }}
         style={{ width: 70, height: 70 }}
       />
-      <Text style={styles.title}>{props.title}</Text>
+      <Text style={styles.title}>{props.productItem.title}</Text>
     </TouchableOpacity>
   );
 }

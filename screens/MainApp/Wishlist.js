@@ -30,13 +30,7 @@ const Wishlist = ({ navigation }) => {
             data={wishList}
             renderItem={({ item }) => (
               <ProductLongCard
-                id={item.id}
-                title={item.title}
-                price={item.price}
-                size={item.size}
-                inStock={item.inStock}
-                imgUrl={item.imgUrl}
-                rating={item.rating}
+                productItem={item}
                 navigation={navigation}
                 deleteItem={deleteItemWish}
                 showDeleteButton={true}
@@ -79,16 +73,7 @@ const Wishlist = ({ navigation }) => {
             keyExtractor={(item) => item.id}
             data={myRecommendations}
             renderItem={({ item }) => (
-              <ProductSmallCard
-                id={item.id}
-                title={item.title}
-                price={item.price}
-                size={item.size}
-                inStock={item.inStock}
-                image={item.image}
-                rating={item.rating}
-                navigation={navigation}
-              />
+              <ProductSmallCard productItem={item} navigation={navigation} />
             )}
           />
         </View>

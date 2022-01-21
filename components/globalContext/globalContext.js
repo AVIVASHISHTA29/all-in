@@ -56,6 +56,7 @@ const Provider = ({ children }) => {
     setReviewList,
     allProducts,
     setAllProducts,
+    domain,
   };
 
   return <Context.Provider value={globalContext}>{children}</Context.Provider>;

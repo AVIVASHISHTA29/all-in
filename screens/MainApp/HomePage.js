@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react";
 import {
   Image,
   StyleSheet,
@@ -21,7 +22,6 @@ export default function HomePage({ navigation }) {
     >
       <SafeAreaView style={styles.container}>
         <SearchBarComponent />
-
         <ProductCollection navigation={navigation} />
       </SafeAreaView>
     </TouchableWithoutFeedback>

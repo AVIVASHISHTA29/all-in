@@ -25,12 +25,7 @@ const MyOrders = ({ navigation }) => {
             data={myOrderList}
             renderItem={({ item }) => (
               <ProductLongCard
-                title={item.title}
-                price={item.price}
-                size={item.size}
-                inStock={item.inStock}
-                image={item.image}
-                rating={item.rating}
+                productItem={item}
                 navigation={navigation}
                 showDeleteButton={false}
                 showAddToCartButton={false}

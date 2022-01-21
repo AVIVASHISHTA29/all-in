@@ -20,6 +20,8 @@ import shareProduct from "../../components/functions/Share/sharingProducts";
 import { myWishList } from "../../data/data";
 import Wishlist from "../MainApp/Wishlist";
 import { Context } from "../../components/globalContext/globalContext";
+import AddToCart from "../../components/functions/AddToCart";
+import AddToWishlist from "../../components/functions/addToWishlist";
 
 export default function ProductPage({ route, navigation }) {
   const globalContext = useContext(Context);
@@ -30,6 +32,7 @@ export default function ProductPage({ route, navigation }) {
     setSearch(search);
   };
   const [search, setSearch] = useState("");
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -39,17 +42,23 @@ export default function ProductPage({ route, navigation }) {
       <ScrollView>
         <View style={styles.container}>
           <Text style={styles.productHeading}>
-            {route.params.title
-              ? route.params.title
+            {route.params.productItem.title
+              ? route.params.productItem.title
               : "All-In Essentials Half Sleeves Tshirt"}
           </Text>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Star
-              score={route.params.rating ? route.params.rating : 3.5}
+              score={
+                route.params.productItem.rating
+                  ? route.params.productItem.rating
+                  : 3.5
+              }
               style={styles.starStyle}
             />
             <Text style={{ marginBottom: 10 }}>
-              {route.params.rating ? route.params.rating : 3.5}
+              {route.params.productItem.rating
+                ? route.params.productItem.rating
+                : 3.5}
             </Text>
           </View>
           <View
@@ -65,8 +74,8 @@ export default function ProductPage({ route, navigation }) {
             <Image
               resizeMode="contain"
               source={
-                route.params.imgUrl
-                  ? { uri: route.params.imgUrl }
+                route.params.productItem.imgUrl
+                  ? { uri: route.params.productItem.imgUrl }
                   : require("../../assets/images/default.png")
               }
               style={{
@@ -78,12 +87,15 @@ export default function ProductPage({ route, navigation }) {
           <View style={{ flex: 1, flexDirection: "row", alignItems: "center" }}>
             <View>
               <Text style={styles.price}>
-                ₹{route.params.price ? route.params.price : 2500}
+                ₹
+                {route.params.productItem.price
+                  ? route.params.productItem.price
+                  : 2500}
               </Text>
               <Text
                 style={(styles.price, { marginHorizontal: 10, fontSize: 16 })}
               >
-                {route.params.inStock ? "In Stock" : "Out Of Stock"}
+                {route.params.productItem.inStock ? "In Stock" : "Out Of Stock"}
               </Text>
             </View>
             <View style={styles.sizeView}>
@@ -140,24 +152,7 @@ export default function ProductPage({ route, navigation }) {
             <TouchableOpacity
               style={styles.btn2}
               onPress={() => {
-                showMessage({
-                  message: "Added To Your Wish List",
-                  description:
-                    "This item was successfully added to your wish list!",
-                  type: "success",
-                });
-                setWishList([
-                  ...wishList,
-                  {
-                    id: route.params.id,
-                    title: route.params.title,
-                    price: route.params.price,
-                    size: route.params.size,
-                    rating: route.params.rating,
-                    inStock: route.params.inStock,
-                    imgUrl: route.params.imgUrl,
-                  },
-                ]);
+                AddToWishlist(route.params.productItem, wishList, setWishList);
               }}
             >
               <Text
@@ -178,25 +173,7 @@ export default function ProductPage({ route, navigation }) {
             <TouchableOpacity
               style={styles.btn2}
               onPress={() => {
-                showMessage({
-                  message: "Added To Your Cart",
-                  description:
-                    "This item was successfully added to your cart! Happy Shopping !",
-                  type: "success",
-                });
-
-                setCartList([
-                  ...cartList,
-                  {
-                    id: route.params.id,
-                    title: route.params.title,
-                    price: route.params.price,
-                    size: route.params.size,
-                    rating: route.params.rating,
-                    inStock: route.params.inStock,
-                    imgUrl: route.params.imgUrl,
-                  },
-                ]);
+                AddToCart(route.params.productItem, cartList, setCartList);
               }}
             >
               <Text
@@ -218,7 +195,7 @@ export default function ProductPage({ route, navigation }) {
           <View style={{}}>
             <Text style={styles.productSubHeading}>Product Details</Text>
             <Text style={styles.productDetails}>
-              {route.params.description}
+              {route.params.productItem.description}
             </Text>
             <Text style={styles.productSubHeading}>
               Reviews

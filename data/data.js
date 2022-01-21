@@ -141,7 +141,7 @@ export const myRecommendations = [
     size: "M",
     rating: 5,
     inStock: true,
-    image: "https://i.ibb.co/F8sBgT6/shoe.png",
+    imgUrl: "https://i.ibb.co/F8sBgT6/shoe.png",
   },
   {
     id: "22",
@@ -150,7 +150,7 @@ export const myRecommendations = [
     size: "M",
     rating: 4.5,
     inStock: true,
-    image: "https://i.ibb.co/1G7KMC8/shirt.png",
+    imgUrl: "https://i.ibb.co/1G7KMC8/shirt.png",
   },
   {
     id: "23",
@@ -159,7 +159,7 @@ export const myRecommendations = [
     size: "Xl",
     rating: 3.5,
     inStock: false,
-    image: "https://i.ibb.co/RzMLC83/tank.png",
+    imgUrl: "https://i.ibb.co/RzMLC83/tank.png",
   },
   {
     id: "24",
@@ -168,7 +168,7 @@ export const myRecommendations = [
     size: "M",
     rating: 1,
     inStock: true,
-    image: "https://i.ibb.co/DG1yJPJ/pants.png",
+    imgUrl: "https://i.ibb.co/DG1yJPJ/pants.png",
   },
   {
     id: "25",
@@ -177,7 +177,7 @@ export const myRecommendations = [
     size: "M",
     rating: 0,
     inStock: false,
-    image: "https://i.ibb.co/DG1yJPJ/pants.png",
+    imgUrl: "https://i.ibb.co/DG1yJPJ/pants.png",
   },
   {
     id: "26",
@@ -186,7 +186,7 @@ export const myRecommendations = [
     size: "M",
     rating: 5,
     inStock: true,
-    image: "https://i.ibb.co/1G7KMC8/shirt.png",
+    imgUrl: "https://i.ibb.co/1G7KMC8/shirt.png",
   },
   {
     id: "27",
@@ -195,7 +195,7 @@ export const myRecommendations = [
     size: "Sm",
     rating: 4,
     inStock: false,
-    image: "https://i.ibb.co/F8sBgT6/shoe.png",
+    imgUrl: "https://i.ibb.co/F8sBgT6/shoe.png",
   },
 ];
 

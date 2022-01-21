@@ -1,11 +1,21 @@
-import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  Image,
+  TouchableOpacity,
+  RefreshControl,
+} from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import Star from "react-native-star-view";
 import { showMessage } from "react-native-flash-message";
 import shareProduct from "../functions/Share/sharingProducts";
-import { useContext } from "react";
+import { useCallback, useContext, useState } from "react";
 import { Context } from "../globalContext/globalContext";
 import { Ionicons } from "@expo/vector-icons";
+
+import AddToWishlist from "../functions/addToWishlist";
+
 export default function ProductCollection(props) {
   const globalContext = useContext(Context);
   const {
@@ -15,8 +25,31 @@ export default function ProductCollection(props) {
     setCartList,
     allProducts,
     setAllProducts,
+    domain,
   } = globalContext;
 
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    fetch(`${domain}/api/v1.0/user/products`, {
+      method: "GET",
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw res.json();
+        }
+      })
+      .then((json) => {
+        console.log(json);
+        setAllProducts(json);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    setRefreshing(false);
+  }, [refreshing]);
   return (
     <View style={styles.container}>
       <View
@@ -36,17 +69,15 @@ export default function ProductCollection(props) {
         numColumns={2}
         keyExtractor={(item) => item.id}
         data={allProducts}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.productContainer}
             onPress={() => {
               props.navigation.navigate("Product", {
-                title: item.title,
-                imgUrl: item.imgUrl,
-                price: item.price,
-                rating: item.rating,
-                inStock: item.inStock,
-                description: item.description,
+                productItem: item,
               });
             }}
           >
@@ -86,16 +117,7 @@ export default function ProductCollection(props) {
                 <TouchableOpacity
                   style={styles.btn2}
                   onPress={() => {
-                    showMessage({
-                      message: "Added To Your Wish List",
-                      description:
-                        "This item was successfully added to your wish list!",
-                      type: "success",
-                    });
-                    setWishList([...wishList, item]);
-
-                    console.log("hi1");
-                    console.log(item);
+                    AddToWishlist(item, wishList, setWishList);
                   }}
                 >
                   <Image

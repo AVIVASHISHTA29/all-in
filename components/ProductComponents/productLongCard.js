@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { showMessage } from "react-native-flash-message";
+import AddToCart from "../functions/AddToCart";
+import AddToWishlist from "../functions/addToWishlist";
 import { Context } from "../globalContext/globalContext";
 function ProductLongCard(props) {
   const globalContext = useContext(Context);
@@ -8,7 +10,7 @@ function ProductLongCard(props) {
 
   useEffect(() => {
     console.log("hi2");
-    console.log(props.imgUrl);
+    console.log(props.productItem.imgUrl);
   }, []);
 
   return (
@@ -16,20 +18,17 @@ function ProductLongCard(props) {
       style={styles.productContainer}
       onPress={() => {
         props.navigation.navigate("Product", {
-          title: props.title,
-          price: props.price,
-          inStock: props.inStock,
-          imgUrl: props.imgUrl,
-          rating: props.rating,
-          description: props.description,
+          productItem: props.productItem,
         });
+        console.log("item-");
+        console.log(props.productItem);
       }}
     >
       <View style={styles.flexContainer}>
         <View style={styles.imgView}>
           <Image
             resizeMode="contain"
-            source={{ uri: props.imgUrl }}
+            source={{ uri: props.productItem.imgUrl }}
             style={{
               marginLeft: "auto",
               marginRight: "auto",
@@ -41,14 +40,17 @@ function ProductLongCard(props) {
           />
         </View>
         <View style={styles.infoView}>
-          <Text style={styles.title}>{props.title}</Text>
-          <Text style={styles.price}>₹{props.price}</Text>
+          <Text style={styles.title}>{props.productItem.title}</Text>
+          <Text style={styles.price}>₹{props.productItem.price}</Text>
           <Text style={styles.size}>
             Size:
-            <Text style={{ textTransform: "uppercase" }}> {props.size}</Text>
+            <Text style={{ textTransform: "uppercase" }}>
+              {" "}
+              {props.productItem.size}
+            </Text>
           </Text>
           <Text style={styles.size}>
-            {props.inStock ? "In Stock" : "Out Of Stock"}
+            {props.productItem.inStock ? "In Stock" : "Out Of Stock"}
           </Text>
 
           <View style={styles.buttonView}>
@@ -56,7 +58,7 @@ function ProductLongCard(props) {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => {
-                  props.deleteItem(props.id);
+                  props.deleteItem(props.productItem.id);
                   showMessage({
                     message: "Item Deleted",
                     description: "This item was successfully removed!",
@@ -77,25 +79,7 @@ function ProductLongCard(props) {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => {
-                  showMessage({
-                    message: "Added To Your Wish List",
-                    description:
-                      "This item was successfully added to your wish list!",
-                    type: "success",
-                  });
-                  setWishList([
-                    ...wishList,
-                    {
-                      id: props.id,
-                      title: props.title,
-                      price: props.price,
-                      size: props.size,
-                      rating: props.rating,
-                      inStock: props.inStock,
-                      imgUrl: props.imgUrl,
-                    },
-                  ]);
-                  console.log("wishList\n");
+                  AddToWishlist(props.productItem, wishList, setWishList);
                 }}
               >
                 <Image
@@ -111,24 +95,7 @@ function ProductLongCard(props) {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => {
-                  showMessage({
-                    message: "Added To Your Cart",
-                    description:
-                      "This item was successfully added to your cart! Happy Shopping !",
-                    type: "success",
-                  });
-                  setCartList([
-                    ...cartList,
-                    {
-                      id: props.id,
-                      title: props.title,
-                      price: props.price,
-                      size: props.size,
-                      rating: props.rating,
-                      inStock: props.inStock,
-                      imgUrl: props.imgUrl,
-                    },
-                  ]);
+                  AddToCart(props.productItem, cartList, setCartList);
                 }}
               >
                 <Image
