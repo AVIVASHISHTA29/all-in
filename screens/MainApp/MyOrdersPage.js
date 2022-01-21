@@ -67,11 +67,7 @@ const MyOrders = ({ navigation }) => {
             keyExtractor={(item) => item.id}
             data={myRecommendations}
             renderItem={({ item }) => (
-              <ProductSmallCard
-                title={item.title}
-                image={item.image}
-                navigation={navigation}
-              />
+              <ProductSmallCard productItem={item} navigation={navigation} />
             )}
           />
         </View>
