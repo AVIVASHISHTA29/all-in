@@ -15,11 +15,96 @@ import { AntDesign } from "@expo/vector-icons";
 import { showMessage } from "react-native-flash-message";
 import { Context } from "../../components/globalContext/globalContext";
 
-export default function AddAReview() {
+export default function AddAReview({ route }) {
+  const [reviewList, setReviewList] = useState(route.params.reviewList);
+
   const globalContext = useContext(Context);
-  const { reviewList, setReviewList } = globalContext;
+  const { userObj, domain } = globalContext;
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
+
+  function addReview() {
+    showMessage({
+      message: "Review Added",
+      description: "Your review was successfully added to the product!",
+      type: "success",
+    });
+    if (reviewList) {
+      setReviewList([
+        ...reviewList,
+        {
+          id: reviewList ? reviewList.length + 1 : 0,
+          name: userObj.first_name + " " + userObj.last_name,
+          review: review,
+          imgSrc: require("../../assets/images/default.png"),
+          rating: rating,
+        },
+      ]);
+
+      newList = [
+        ...reviewList,
+        {
+          id: reviewList ? reviewList.length + 1 : 0,
+          name: userObj.first_name + " " + userObj.last_name,
+          review: review,
+          imgSrc: require("../../assets/images/default.png"),
+          rating: rating,
+        },
+      ];
+    } else {
+      setReviewList([
+        {
+          id: reviewList ? reviewList.length + 1 : 0,
+          name: userObj.first_name + " " + userObj.last_name,
+          review: review,
+          imgSrc: require("../../assets/images/default.png"),
+          rating: rating,
+        },
+      ]);
+
+      newList = [
+        {
+          id: reviewList ? reviewList.length + 1 : 0,
+          name: userObj.first_name + " " + userObj.last_name,
+          review: review,
+          imgSrc: require("../../assets/images/default.png"),
+          rating: rating,
+        },
+      ];
+    }
+
+    let body = JSON.stringify({
+      reviews: { data: newList },
+    });
+
+    fetch(`${domain}/api/v1.0/user/product-data/${route.params.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log("User review coudn't be updated");
+          throw res.json();
+        }
+      })
+      .then((json) => {
+        // setUserObj(json);
+        // setToken(json.token);
+        // setIsLoggedIn(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    setReview("");
+    setRating(0);
+  }
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -43,7 +128,7 @@ export default function AddAReview() {
             setRating(value);
           }}
         />
-        <Star score={rating ? rating : 3.5} style={styles.starStyle} />
+        <Star score={rating ? rating : 0} style={styles.starStyle} />
         <TextInput
           multiline
           numberOfLines={10}
@@ -59,26 +144,7 @@ export default function AddAReview() {
         <View style={{ flexDirection: "row", justifyContent: "flex-end" }}>
           <TouchableOpacity
             style={[styles.floatingButton, { marginTop: 20 }]}
-            onPress={() => {
-              showMessage({
-                message: "Review Added",
-                description:
-                  "Your review was successfully added to the product!",
-                type: "success",
-              });
-              setReviewList([
-                ...reviewList,
-                {
-                  id: "101" + review.length.toString,
-                  name: "Testing Name",
-                  review: review,
-                  imgSrc: require("../../assets/images/logo.png"),
-                  rating: rating,
-                },
-              ]);
-              setReview("");
-              setRating(0);
-            }}
+            onPress={addReview}
           >
             <AntDesign name="plus" size={30} color="#fff" />
           </TouchableOpacity>

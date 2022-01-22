@@ -13,7 +13,7 @@ import { showMessage } from "react-native-flash-message";
 import shareProduct from "../functions/Share/sharingProducts";
 import { useCallback, useContext, useEffect, useState } from "react";
 import { Context } from "../globalContext/globalContext";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 
 import AddToWishlist from "../functions/addToWishlist";
 import AddToCart from "../functions/AddToCart";
@@ -33,6 +33,8 @@ export default function ProductCollection(props) {
   } = globalContext;
   const [flag, setFlag] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  console.log("my products");
+  console.log(allProducts);
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     fetch(`${domain}/api/v1.0/user/products`, {
@@ -69,97 +71,127 @@ export default function ProductCollection(props) {
           <Ionicons name="filter" size={24} color="black" />
         </TouchableOpacity>
       </View>
-      <FlatList
-        style={{ marginBottom: 120, marginTop: 10 }}
-        numColumns={2}
-        keyExtractor={(item) => item.id}
-        data={allProducts}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.productContainer}
-            onPress={() => {
-              props.navigation.navigate("Product", {
-                productItem: item,
-              });
-            }}
-          >
-            <View style={{ flex: 1 }}>
-              <Image
-                resizeMode="contain"
-                source={{
-                  uri: item.imgUrl,
-                }}
-                style={{
-                  width: 100,
-                  height: 150,
-                  marginLeft: "auto",
-                  marginRight: "auto",
-                }}
-              />
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.price}>₹{item.price}</Text>
-              <Star
-                score={item.rating ? item.rating : 3.5}
-                style={styles.starStyle}
-              />
-              <View
-                style={{
-                  flexDirection: "row",
-                  marginTop: "auto",
-                  marginBottom: 0,
-                }}
-              >
-                <TouchableOpacity style={styles.btn2} onPress={shareProduct}>
-                  <Image
-                    resizeMode="contain"
-                    source={require("../../assets/icons/share.png")}
-                    style={{ width: 20, height: 20 }}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.btn2}
-                  onPress={() => {
-                    AddToWishlist(
-                      item,
-                      wishList,
-                      setWishList,
-                      domain,
-                      userObj.email
-                    );
+      {allProducts ? (
+        <FlatList
+          style={{ marginBottom: 120, marginTop: 10 }}
+          numColumns={2}
+          keyExtractor={(item) => item.id}
+          data={allProducts}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.productContainer}
+              onPress={() => {
+                props.navigation.navigate("Product", {
+                  productItem: item,
+                });
+              }}
+            >
+              <View style={{ flex: 1 }}>
+                <Image
+                  resizeMode="contain"
+                  source={{
+                    uri: item.imgUrl,
+                  }}
+                  style={{
+                    width: 100,
+                    height: 150,
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                  }}
+                />
+                <Text style={styles.title}>{item.title}</Text>
+                <Text style={styles.price}>₹{item.price}</Text>
+                <Star
+                  score={item.rating ? item.rating : 3.5}
+                  style={styles.starStyle}
+                />
+                <View
+                  style={{
+                    flexDirection: "row",
+                    marginTop: "auto",
+                    marginBottom: 0,
                   }}
                 >
-                  <Image
-                    resizeMode="contain"
-                    source={require("../../assets/icons/TopBarIcons/saved.png")}
-                    style={{ width: 20, height: 20 }}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.btn2}
-                  onPress={() => {
-                    AddToCart(
-                      item,
-                      cartList,
-                      setCartList,
-                      domain,
-                      userObj.email
-                    );
-                  }}
-                >
-                  <Image
-                    resizeMode="contain"
-                    source={require("../../assets/icons/TopBarIcons/cart.png")}
-                    style={{ width: 20, height: 20 }}
-                  />
-                </TouchableOpacity>
+                  <TouchableOpacity style={styles.btn2} onPress={shareProduct}>
+                    <Image
+                      resizeMode="contain"
+                      source={require("../../assets/icons/share.png")}
+                      style={{ width: 20, height: 20 }}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.btn2}
+                    onPress={() => {
+                      AddToWishlist(
+                        item,
+                        wishList,
+                        setWishList,
+                        domain,
+                        userObj.email
+                      );
+                    }}
+                  >
+                    <Image
+                      resizeMode="contain"
+                      source={require("../../assets/icons/TopBarIcons/saved.png")}
+                      style={{ width: 20, height: 20 }}
+                    />
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.btn2}
+                    onPress={() => {
+                      AddToCart(
+                        item,
+                        cartList,
+                        setCartList,
+                        domain,
+                        userObj.email
+                      );
+                    }}
+                  >
+                    <Image
+                      resizeMode="contain"
+                      source={require("../../assets/icons/TopBarIcons/cart.png")}
+                      style={{ width: 20, height: 20 }}
+                    />
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
+            </TouchableOpacity>
+          )}
+        />
+      ) : (
+        <TouchableOpacity
+          onPress={() => {
+            onRefresh;
+          }}
+          style={{
+            textAlign: "center",
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            margin: 20,
+            marginTop: "auto",
+            marginBottom: "auto",
+          }}
+        >
+          <View style={{}}>
+            <AntDesign name="shoppingcart" size={48} color="black" />
+          </View>
+          <Text style={[{ marginTop: 20, color: "#000", textAlign: "center" }]}>
+            Couldn't Load Products
+          </Text>
+          <AntDesign
+            name="reload1"
+            size={20}
+            color="black"
+            style={{ marginTop: 20 }}
+          />
+        </TouchableOpacity>
+      )}
     </View>
   );
 }

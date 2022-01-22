@@ -26,24 +26,39 @@ import getWishList from "../../components/functions/DbFunctions/updateWishList";
 
 export default function ProductPage({ route, navigation }) {
   const globalContext = useContext(Context);
-  const {
-    wishList,
-    setWishList,
-    cartList,
-    setCartList,
-    reviewList,
-    domain,
-    userObj,
-  } = globalContext;
+  const { wishList, setWishList, cartList, setCartList, domain, userObj } =
+    globalContext;
 
   const updateSearch = (search) => {
     setSearch(search);
   };
   const [search, setSearch] = useState("");
+  const [reviewList, setReviewList] = useState();
 
   useEffect(() => {
-    getWishList(setWishList, domain, userObj);
-  }, [wishList]);
+    fetch(
+      `${domain}/api/v1.0/user/product-data/${route.params.productItem.id}`,
+      {
+        method: "GET",
+      }
+    )
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw res.json();
+        }
+      })
+      .then((json) => {
+        setReviewList(json.reviews.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    console.log("Getting and setting product data...");
+  }, []);
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -222,30 +237,46 @@ export default function ProductPage({ route, navigation }) {
             </Text>
             <Text style={styles.productSubHeading}>
               Reviews
-              <Text style={{ fontWeight: "300" }}> ({reviewList.length})</Text>
-            </Text>
-            <ReviewCard
-              name={reviewList[0].name}
-              imgSrc={reviewList[0].imgSrc}
-              review={reviewList[0].review}
-              rating={reviewList[0].rating}
-            />
-            <TouchableOpacity
-              style={{
-                textAlign: "center",
-                alignItems: "center",
-                marginBottom: 5,
-                padding: 10,
-                justifyContent: "center",
-                backgroundColor: "#C4C4C4",
-              }}
-              onPress={() => navigation.navigate("Reviews")}
-            >
-              <Text style={{ fontSize: 18, fontWeight: "600" }}>
+              <Text style={{ fontWeight: "300" }}>
                 {" "}
-                View More
+                ({reviewList ? reviewList.length : 0})
               </Text>
-            </TouchableOpacity>
+            </Text>
+            {reviewList ? (
+              <>
+                <ReviewCard
+                  name={reviewList[0].name}
+                  imgSrc={reviewList[0].imgSrc}
+                  review={reviewList[0].review}
+                  rating={reviewList[0].rating}
+                />
+                <TouchableOpacity
+                  style={{
+                    textAlign: "center",
+                    alignItems: "center",
+                    marginBottom: 5,
+                    padding: 10,
+                    justifyContent: "center",
+                    backgroundColor: "#C4C4C4",
+                  }}
+                  onPress={() =>
+                    navigation.navigate("Reviews", {
+                      id: route.params.productItem.id,
+                    })
+                  }
+                >
+                  <Text style={{ fontSize: 18, fontWeight: "600" }}>
+                    {" "}
+                    View More
+                  </Text>
+                </TouchableOpacity>
+              </>
+            ) : (
+              <>
+                <Text style={{ marginVertical: 10 }}>No Reviews Yet...</Text>
+              </>
+            )}
+
             <TouchableOpacity
               style={{
                 textAlign: "center",
@@ -255,7 +286,12 @@ export default function ProductPage({ route, navigation }) {
                 justifyContent: "center",
                 backgroundColor: "#C4C4C4",
               }}
-              onPress={() => navigation.navigate("AddAReview")}
+              onPress={() =>
+                navigation.navigate("AddAReview", {
+                  reviewList: reviewList,
+                  id: route.params.productItem.id,
+                })
+              }
             >
               <Text style={{ fontSize: 18, fontWeight: "600" }}>
                 {" "}
