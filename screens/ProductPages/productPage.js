@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   Button,
   Image,
@@ -22,17 +22,28 @@ import Wishlist from "../MainApp/Wishlist";
 import { Context } from "../../components/globalContext/globalContext";
 import AddToCart from "../../components/functions/AddToCart";
 import AddToWishlist from "../../components/functions/addToWishlist";
+import getWishList from "../../components/functions/DbFunctions/updateWishList";
 
 export default function ProductPage({ route, navigation }) {
   const globalContext = useContext(Context);
-  const { wishList, setWishList, cartList, setCartList, reviewList } =
-    globalContext;
+  const {
+    wishList,
+    setWishList,
+    cartList,
+    setCartList,
+    reviewList,
+    domain,
+    userObj,
+  } = globalContext;
 
   const updateSearch = (search) => {
     setSearch(search);
   };
   const [search, setSearch] = useState("");
 
+  useEffect(() => {
+    getWishList(setWishList, domain, userObj);
+  }, [wishList]);
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -152,7 +163,13 @@ export default function ProductPage({ route, navigation }) {
             <TouchableOpacity
               style={styles.btn2}
               onPress={() => {
-                AddToWishlist(route.params.productItem, wishList, setWishList);
+                AddToWishlist(
+                  route.params.productItem,
+                  wishList,
+                  setWishList,
+                  domain,
+                  userObj.email
+                );
               }}
             >
               <Text
@@ -173,7 +190,13 @@ export default function ProductPage({ route, navigation }) {
             <TouchableOpacity
               style={styles.btn2}
               onPress={() => {
-                AddToCart(route.params.productItem, cartList, setCartList);
+                AddToCart(
+                  route.params.productItem,
+                  cartList,
+                  setCartList,
+                  domain,
+                  userObj.email
+                );
               }}
             >
               <Text

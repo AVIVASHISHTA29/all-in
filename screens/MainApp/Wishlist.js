@@ -1,16 +1,22 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { myWishList, myRecommendations } from "../../data/data";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import ProductLongCard from "../../components/ProductComponents/productLongCard";
 import ProductSmallCard from "../../components/ProductComponents/productSmallCard";
 import { Context } from "../../components/globalContext/globalContext";
-import { AntDesign } from "@expo/vector-icons";
-import { Feather } from "@expo/vector-icons";
+import { Feather, AntDesign } from "@expo/vector-icons";
+import getWishList from "../../components/functions/DbFunctions/updateWishList";
+
 const Wishlist = ({ navigation }) => {
-  // const list = myWishList;
-  // const [wishList, setWishList] = useState(list);
   const globalContext = useContext(Context);
-  const { wishList, setWishList } = globalContext;
+  const { wishList, setWishList, domain, userObj } = globalContext;
 
   const deleteItemWish = (id) => {
     setWishList((wishList) => {
@@ -18,6 +24,16 @@ const Wishlist = ({ navigation }) => {
     });
   };
 
+  useEffect(() => {
+    getWishList(setWishList, domain, userObj);
+  }, []);
+
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    getWishList(setWishList, domain, userObj);
+    setRefreshing(false);
+  }, [refreshing]);
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Your Wishlist</Text>
@@ -28,6 +44,9 @@ const Wishlist = ({ navigation }) => {
             style={{ marginBottom: 20, flex: 1, marginTop: 10 }}
             keyExtractor={(item) => item.id}
             data={wishList}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
             renderItem={({ item }) => (
               <ProductLongCard
                 productItem={item}
@@ -39,7 +58,10 @@ const Wishlist = ({ navigation }) => {
             )}
           />
         ) : (
-          <View
+          <TouchableOpacity
+            onPress={() => {
+              getWishList(setWishList, domain, userObj);
+            }}
             style={{
               textAlign: "center",
               flex: 1,
@@ -61,7 +83,13 @@ const Wishlist = ({ navigation }) => {
             >
               Your Wishlist is Empty
             </Text>
-          </View>
+            <AntDesign
+              name="reload1"
+              size={20}
+              color="black"
+              style={{ marginTop: 20 }}
+            />
+          </TouchableOpacity>
         )}
 
         <View style={{ flex: 0.4 }}>

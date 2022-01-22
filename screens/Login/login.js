@@ -15,8 +15,16 @@ import { Context } from "../../components/globalContext/globalContext";
 
 export default function LoginPage({ navigation, route, props }) {
   const globalContext = useContext(Context);
-  const { setIsLoggedIn, appSettings, domain, userObj, setUserObj, setToken } =
-    globalContext;
+  const {
+    setIsLoggedIn,
+    appSettings,
+    domain,
+    userObj,
+    setUserObj,
+    setToken,
+    setCartList,
+    setWishList,
+  } = globalContext;
 
   const [securePassword, setSecurePassword] = useState(true);
   const [email, setEmail] = useState("");
@@ -47,10 +55,31 @@ export default function LoginPage({ navigation, route, props }) {
         }
       })
       .then((json) => {
-        console.log(json);
-        setUserObj(json);
         setToken(json.token);
         setIsLoggedIn(true);
+        getUserData();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  function getUserData() {
+    fetch(`${domain}/api/v1.0/user/user-data/${email.toLowerCase()}`, {
+      method: "GET",
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw res.json();
+        }
+      })
+      .then((json) => {
+        console.log("setting User data....");
+        setUserObj(json[0]);
+        setWishList(json[0].wish_list.products);
+        setCartList(json[0].my_cart.products);
       })
       .catch((error) => {
         console.log(error);

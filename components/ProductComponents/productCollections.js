@@ -11,12 +11,13 @@ import { FlatList } from "react-native-gesture-handler";
 import Star from "react-native-star-view";
 import { showMessage } from "react-native-flash-message";
 import shareProduct from "../functions/Share/sharingProducts";
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Context } from "../globalContext/globalContext";
 import { Ionicons } from "@expo/vector-icons";
 
 import AddToWishlist from "../functions/addToWishlist";
 import AddToCart from "../functions/AddToCart";
+import getWishList from "../functions/DbFunctions/updateWishList";
 
 export default function ProductCollection(props) {
   const globalContext = useContext(Context);
@@ -28,6 +29,7 @@ export default function ProductCollection(props) {
     allProducts,
     setAllProducts,
     domain,
+    userObj,
   } = globalContext;
   const [flag, setFlag] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -52,6 +54,7 @@ export default function ProductCollection(props) {
       });
     setRefreshing(false);
   }, [refreshing]);
+
   return (
     <View style={styles.container}>
       <View
@@ -119,7 +122,13 @@ export default function ProductCollection(props) {
                 <TouchableOpacity
                   style={styles.btn2}
                   onPress={() => {
-                    AddToWishlist(item, wishList, setWishList);
+                    AddToWishlist(
+                      item,
+                      wishList,
+                      setWishList,
+                      domain,
+                      userObj.email
+                    );
                   }}
                 >
                   <Image
@@ -131,7 +140,13 @@ export default function ProductCollection(props) {
                 <TouchableOpacity
                   style={styles.btn2}
                   onPress={() => {
-                    AddToCart(item, cartList, setCartList);
+                    AddToCart(
+                      item,
+                      cartList,
+                      setCartList,
+                      domain,
+                      userObj.email
+                    );
                   }}
                 >
                   <Image

@@ -7,7 +7,8 @@ import { Context } from "../globalContext/globalContext";
 import { AntDesign } from "@expo/vector-icons";
 function ProductLongCard(props) {
   const globalContext = useContext(Context);
-  const { wishList, setWishList, cartList, setCartList } = globalContext;
+  const { wishList, setWishList, cartList, setCartList, domain, userObj } =
+    globalContext;
   const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
@@ -120,7 +121,13 @@ function ProductLongCard(props) {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => {
-                  AddToWishlist(props.productItem, wishList, setWishList);
+                  AddToWishlist(
+                    props.productItem,
+                    wishList,
+                    setWishList,
+                    domain,
+                    userObj.email
+                  );
                 }}
               >
                 <Image
@@ -136,7 +143,13 @@ function ProductLongCard(props) {
               <TouchableOpacity
                 style={styles.btn}
                 onPress={() => {
-                  AddToCart(props.productItem, cartList, setCartList);
+                  AddToCart(
+                    props.productItem,
+                    cartList,
+                    setCartList,
+                    domain,
+                    userObj.email
+                  );
                 }}
               >
                 <Image

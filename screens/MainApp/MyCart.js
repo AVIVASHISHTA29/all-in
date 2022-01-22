@@ -1,19 +1,39 @@
-import { useContext, useState } from "react";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { useCallback, useContext, useEffect, useState } from "react";
+import {
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Context } from "../../components/globalContext/globalContext";
 import ProductLongCard from "../../components/ProductComponents/productLongCard";
 import ProductSmallCard from "../../components/ProductComponents/productSmallCard";
 import { myRecommendations } from "../../data/data.js";
 import { AntDesign } from "@expo/vector-icons";
 import CheckoutFloatingDiv from "../../components/CheckoutFloatingDiv";
+import getCartList from "../../components/functions/DbFunctions/updateCartList";
+
 const MyCart = ({ navigation }) => {
   const globalContext = useContext(Context);
-  const { cartList, setCartList } = globalContext;
+  const { cartList, setCartList, domain, userObj } = globalContext;
   const deleteItem = (id) => {
     setCartList((cartList) => {
       return cartList.filter((item) => item.id != id);
     });
   };
+
+  useEffect(() => {
+    getCartList(setCartList, domain, userObj);
+  }, []);
+
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    getCartList(setCartList, domain, userObj);
+    setRefreshing(false);
+  }, [refreshing]);
 
   return (
     <View style={styles.container}>
@@ -25,6 +45,9 @@ const MyCart = ({ navigation }) => {
             style={{ marginBottom: 20, flex: 1, marginTop: 10 }}
             keyExtractor={(item) => item.id}
             data={cartList}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
             renderItem={({ item }) => (
               <ProductLongCard
                 productItem={item}
@@ -38,7 +61,10 @@ const MyCart = ({ navigation }) => {
             )}
           />
         ) : (
-          <View
+          <TouchableOpacity
+            onPress={() => {
+              getCartList(setCartList, domain, userObj);
+            }}
             style={{
               textAlign: "center",
               flex: 1,
@@ -60,7 +86,14 @@ const MyCart = ({ navigation }) => {
             >
               Your Cart is Empty
             </Text>
-          </View>
+
+            <AntDesign
+              name="reload1"
+              size={20}
+              color="black"
+              style={{ marginTop: 20 }}
+            />
+          </TouchableOpacity>
         )}
 
         <View style={{ flex: 0.25 }}>
