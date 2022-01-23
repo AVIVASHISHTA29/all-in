@@ -47,7 +47,7 @@ export default function ProductCollection(props) {
         }
       })
       .then((json) => {
-        console.log(json);
+        // console.log(json);
         setAllProducts(json);
       })
       .catch((error) => {

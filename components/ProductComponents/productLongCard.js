@@ -11,10 +11,7 @@ function ProductLongCard(props) {
     globalContext;
   const [quantity, setQuantity] = useState(1);
 
-  useEffect(() => {
-    console.log("hi2");
-    console.log(props.productItem.imgUrl);
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <TouchableOpacity

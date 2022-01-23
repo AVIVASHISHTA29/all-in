@@ -76,7 +76,6 @@ export default function LoginPage({ navigation, route, props }) {
         }
       })
       .then((json) => {
-        console.log("setting User data....");
         setUserObj(json[0]);
         setWishList(json[0].wish_list.products);
         setCartList(json[0].my_cart.products);

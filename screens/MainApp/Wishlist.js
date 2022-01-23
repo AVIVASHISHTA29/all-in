@@ -22,6 +22,34 @@ const Wishlist = ({ navigation }) => {
     setWishList((wishList) => {
       return wishList.filter((item) => item.id != id);
     });
+    newList = wishList.filter((item) => item.id != id);
+    let body = JSON.stringify({
+      wish_list: { products: newList },
+    });
+
+    fetch(`${domain}/api/v1.0/user/user-data/${userObj.email}/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log("User data coudn't be updated");
+          throw res.json();
+        }
+      })
+      .then((json) => {
+        // setUserObj(json);
+        // setToken(json.token);
+        // setIsLoggedIn(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   useEffect(() => {

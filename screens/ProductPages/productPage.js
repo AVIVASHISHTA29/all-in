@@ -143,20 +143,8 @@ export default function ProductPage({ route, navigation }) {
               </Text>
             </View>
             <View style={styles.sizeView}>
-              {/* <TouchableOpacity style={styles.btn}>
-                <Text style={styles.sizeText}>XS</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.btn}>
-                <Text style={styles.sizeText}>S</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.btn}>
-                <Text style={styles.sizeText}>M</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.btn}>
-                <Text style={styles.sizeText}>XL</Text>
-              </TouchableOpacity> */}
-              {sizeList.map((item) => (
-                <TouchableOpacity style={styles.btn}>
+              {sizeList.map((item, id) => (
+                <TouchableOpacity style={styles.btn} key={id}>
                   <Text style={styles.sizeText}>{item}</Text>
                 </TouchableOpacity>
               ))}
