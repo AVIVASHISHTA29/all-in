@@ -43,7 +43,7 @@ const SummaryPage = ({ route, navigation }) => {
     if (cartList) {
       let body = JSON.stringify({
         my_cart: { products: [] },
-        my_orders: { products: cartList },
+        my_orders: { products: [...orderList, cartList] },
       });
       setCartList([]);
       fetch(`${domain}/api/v1.0/user/user-data/${userObj.email}/`, {
