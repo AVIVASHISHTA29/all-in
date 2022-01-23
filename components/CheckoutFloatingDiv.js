@@ -8,9 +8,11 @@ function CheckoutFloatingDiv(props) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
+    console.log(cartList);
     setTotalPrice(
       cartList.reduce(
-        (total, currentItem) => (total = total + parseInt(currentItem.price)),
+        (total, currentItem) =>
+          (total = total + parseInt(currentItem.price * currentItem.quantity)),
         0
       )
     );

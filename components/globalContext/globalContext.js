@@ -11,6 +11,7 @@ const Provider = ({ children }) => {
   const [allProducts, setAllProducts] = useState({});
   const [wishList, setWishList] = useState();
   const [cartList, setCartList] = useState();
+  const [orderList, setOrderList] = useState();
   const [reviewList, setReviewList] = useState(myReviewList);
   const setToken = async (token) => {
     await SecureStore.setItemAsync("token", token);
@@ -54,6 +55,8 @@ const Provider = ({ children }) => {
     setReviewList,
     allProducts,
     setAllProducts,
+    orderList,
+    setOrderList,
     domain,
   };
 

@@ -14,12 +14,13 @@ function AddToCart(item, cartList, setCartList, domain, email) {
         "This item was successfully added to your cart! Happy Shopping !",
       type: "success",
     });
-    setCartList([...cartList, item]);
-    newList = [...cartList, item];
+    setCartList([...cartList, { id: item.id, quantity: 1, price: item.price }]);
+    newList = [...cartList, { id: item.id, quantity: 1, price: item.price }];
     let body = JSON.stringify({
       my_cart: { products: newList },
     });
-
+    console.log("printing the new cart list");
+    console.log(body);
     fetch(`${domain}/api/v1.0/user/user-data/${email}/`, {
       method: "PUT",
       headers: {

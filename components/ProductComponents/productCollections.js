@@ -84,7 +84,7 @@ export default function ProductCollection(props) {
               style={styles.productContainer}
               onPress={() => {
                 props.navigation.navigate("Product", {
-                  productItem: item,
+                  id: item.id,
                 });
               }}
             >

@@ -13,9 +13,18 @@ import ProductSmallCard from "../../components/ProductComponents/productSmallCar
 import { AntDesign } from "@expo/vector-icons";
 import { useContext, useState } from "react";
 import { Context } from "../../components/globalContext/globalContext.js";
+import { showMessage } from "react-native-flash-message";
 // import RazorpayCheckout from "react-native-razorpay";
 
 const SummaryPage = ({ route, navigation }) => {
+  const globalContext = useContext(Context);
+  const { cartList, setCartList, orderList, setOrderList, domain, userObj } =
+    globalContext;
+  const [taxes, setTaxes] = useState(0.18 * parseInt(route.params.totalPrice));
+  const [finalTotal, setFinalTotal] = useState(
+    taxes + parseInt(route.params.totalPrice)
+  );
+
   function paymentProcess() {
     var options = {
       description: "Credits towards consultation",
@@ -31,6 +40,44 @@ const SummaryPage = ({ route, navigation }) => {
       },
       theme: { color: "#000" },
     };
+    if (cartList) {
+      let body = JSON.stringify({
+        my_cart: { products: [] },
+        my_orders: { products: cartList },
+      });
+      setCartList([]);
+      fetch(`${domain}/api/v1.0/user/user-data/${userObj.email}/`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: body,
+      })
+        .then((res) => {
+          if (res.ok) {
+            showMessage({
+              message: "Added To Your Cart",
+              description:
+                "This item was successfully added to your cart! Happy Shopping !",
+              type: "success",
+            });
+
+            return res.json();
+          } else {
+            console.log("User data coudn't be updated");
+            throw res.json();
+          }
+        })
+        .then((json) => {
+          // setUserObj(json);
+          // setToken(json.token);
+          // setIsLoggedIn(true);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+
     // RazorpayCheckout.open(options)
     //   .then((data) => {
     //     // handle success
@@ -41,13 +88,6 @@ const SummaryPage = ({ route, navigation }) => {
     //     alert(`Error: ${error.code} | ${error.description}`);
     //   });
   }
-
-  const globalContext = useContext(Context);
-  const { cartList, setCartList } = globalContext;
-  const [taxes, setTaxes] = useState(0.18 * parseInt(route.params.totalPrice));
-  const [finalTotal, setFinalTotal] = useState(
-    taxes + parseInt(route.params.totalPrice)
-  );
   return (
     <View style={styles.container}>
       <Text style={styles.heading}>Order Summary</Text>
@@ -125,10 +165,12 @@ const SummaryPage = ({ route, navigation }) => {
           data={cartList}
           renderItem={({ item }) => (
             <ProductLongCard
-              productItem={item}
+              id={item.id}
+              quantity={item.quantity}
               navigation={navigation}
               showDeleteButton={false}
               showAddToCartButton={false}
+              isCheckOut={true}
             />
           )}
         />

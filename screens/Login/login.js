@@ -24,6 +24,7 @@ export default function LoginPage({ navigation, route, props }) {
     setToken,
     setCartList,
     setWishList,
+    setOrderList,
   } = globalContext;
 
   const [securePassword, setSecurePassword] = useState(true);
@@ -79,6 +80,7 @@ export default function LoginPage({ navigation, route, props }) {
         setUserObj(json[0]);
         setWishList(json[0].wish_list.products);
         setCartList(json[0].my_cart.products);
+        setOrderList(json[0].my_orders);
       })
       .catch((error) => {
         console.log(error);

@@ -77,7 +77,7 @@ const Wishlist = ({ navigation }) => {
             }
             renderItem={({ item }) => (
               <ProductLongCard
-                productItem={item}
+                id={item.id}
                 navigation={navigation}
                 deleteItem={deleteItemWish}
                 showDeleteButton={true}

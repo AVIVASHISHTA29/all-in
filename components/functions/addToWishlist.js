@@ -14,8 +14,8 @@ function AddToWishlist(item, wishList, setWishList, domain, email) {
       description: "This item was successfully added to your wish list!",
       type: "success",
     });
-    setWishList([...wishList, item]);
-    newList = [...wishList, item];
+    setWishList([...wishList, { id: item.id }]);
+    newList = [...wishList, { id: item.id }];
     let body = JSON.stringify({
       wish_list: { products: newList },
     });

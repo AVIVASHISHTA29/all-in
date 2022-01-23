@@ -78,7 +78,8 @@ const MyCart = ({ navigation }) => {
             }
             renderItem={({ item }) => (
               <ProductLongCard
-                productItem={item}
+                id={item.id}
+                quantity={item.quantity}
                 navigation={navigation}
                 deleteItem={deleteItem}
                 showDeleteButton={true}
