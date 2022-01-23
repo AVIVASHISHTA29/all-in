@@ -150,6 +150,7 @@ export default function SignUp1({ navigation, route, props }) {
               autoCompleteType="email"
               style={styles.input}
               placeholder="Email"
+              autoCapitalize="none"
             />
             <View
               style={[

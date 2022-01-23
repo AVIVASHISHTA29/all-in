@@ -1,7 +1,8 @@
-import { useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import {
   FlatList,
   Image,
+  RefreshControl,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -12,24 +13,54 @@ import { Context } from "../../../components/globalContext/globalContext";
 import ProductLongCard from "../../../components/ProductComponents/productLongCard";
 import ProductSmallCard from "../../../components/ProductComponents/productSmallCard";
 import { myRecommendations } from "../../../data/data.js";
-import { Feather, AntDesign } from "@expo/vector-icons";
+import { Feather, AntDesign, Ionicons } from "@expo/vector-icons";
 
 import CheckoutFloatingDiv from "../../../components/CheckoutFloatingDiv";
 import { ScrollViewBase } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 const Profile = ({ navigation }) => {
   const globalContext = useContext(Context);
-  const { cartList, setCartList } = globalContext;
-  const deleteItem = (id) => {
-    setCartList((cartList) => {
-      return cartList.filter((item) => item.id != id);
-    });
-  };
+  const { cartList, setCartList, userObj, setUserObj, domain } = globalContext;
+
+  function getUserData() {
+    fetch(`${domain}/api/v1.0/user/user-data/${userObj.email}`, {
+      method: "GET",
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw res.json();
+        }
+      })
+      .then((json) => {
+        setUserObj(json[0]);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    getUserData();
+    setRefreshing(false);
+  }, [refreshing]);
+
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       <Text style={[styles.heading, { textAlign: "center" }]}>
-        Avi Vashishta
+        {userObj.first_name + " " + userObj.last_name}
       </Text>
 
       <View style={{ flex: 1, justifyContent: "flex-start" }}>
@@ -72,15 +103,14 @@ const Profile = ({ navigation }) => {
           Delivery Address
         </Text>
         <View style={styles.addressContainer}>
-          <View>
+          <View style={{ width: "90%" }}>
             <Text
               style={[
                 styles.subHeading,
                 { textAlign: "left", fontSize: 16, color: "#333" },
               ]}
             >
-              E-392, Ground Floor {"\n"}Greater Kailash Part - 2 {"\n"}New Delhi
-              , India - 110048
+              {userObj.address ? userObj.address : "Please Enter Your Address"}
             </Text>
           </View>
           <View
@@ -92,11 +122,15 @@ const Profile = ({ navigation }) => {
               backgroundColor: "#fff",
             }}
           >
-            <AntDesign name="check" size={24} color="#000" />
+            <Ionicons name="ios-location-outline" size={24} color="black" />
           </View>
         </View>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("HomePage");
+        }}
+      >
         <View style={styles.addressContainer}>
           <View>
             <Text
@@ -121,7 +155,11 @@ const Profile = ({ navigation }) => {
           </View>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("Wishlist");
+        }}
+      >
         <View style={styles.addressContainer}>
           <View>
             <Text
@@ -146,7 +184,11 @@ const Profile = ({ navigation }) => {
           </View>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("My Orders");
+        }}
+      >
         <View style={styles.addressContainer}>
           <View>
             <Text

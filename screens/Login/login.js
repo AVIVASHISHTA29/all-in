@@ -152,6 +152,7 @@ export default function LoginPage({ navigation, route, props }) {
               autoCompleteType="email"
               style={styles.input}
               placeholder="Email"
+              autoCapitalize="none"
             />
             <View
               style={[

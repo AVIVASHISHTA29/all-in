@@ -11,26 +11,52 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 import { useContext, useState } from "react";
-// import { Context } from "../../../components/globalContext/globalContext";
+import { Context } from "../../../components/globalContext/globalContext";
 
 export default function EditProfile({ navigation, route, props }) {
-  // const globalContext = useContext(Context);
-  // const { setIsLoggedIn, appSettings, domain, userObj, setUserObj, setToken } =
-  //   globalContext;
+  const globalContext = useContext(Context);
+  const { domain, userObj } = globalContext;
 
-  const [securePassword, setSecurePassword] = useState(true);
-  const [secureConfirmPassword, setSecureConfirmPassword] = useState(true);
-
-  const [email, setEmail] = useState("avivashishta@gmail.com");
-  const [firstName, setFirstName] = useState("Avi");
-  const [lastName, setLastName] = useState("Vashishta");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(userObj.email);
+  const [firstName, setFirstName] = useState(userObj.first_name);
+  const [lastName, setLastName] = useState(userObj.last_name);
+  const [password, setPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [address, setAddress] = useState("");
+  const [address, setAddress] = useState(
+    userObj.address ? userObj.address : ""
+  );
   const [error, setError] = useState("");
 
   function handleSave() {
-    setError("");
+    let body = JSON.stringify({
+      first_name: firstName,
+      last_name: lastName,
+      address: address,
+    });
+
+    fetch(`${domain}/api/v1.0/user/user-data/${userObj.email}/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          console.log("User data coudn't be updated");
+          throw res.json();
+        }
+      })
+      .then((json) => {
+        // setUserObj(json);
+        // setToken(json.token);
+        // setIsLoggedIn(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     navigation.pop();
   }
 
