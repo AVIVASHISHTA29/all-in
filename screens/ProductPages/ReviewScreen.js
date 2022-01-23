@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import {
   View,
   Text,
   SafeAreaView,
   TouchableOpacity,
   StyleSheet,
+  RefreshControl,
 } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { Context } from "../../components/globalContext/globalContext";
@@ -15,7 +16,7 @@ export default function ReviewScreen({ route }) {
   const { domain } = globalContext;
   const [reviewList, setReviewList] = useState();
 
-  useEffect(() => {
+  function fetchData() {
     fetch(`${domain}/api/v1.0/user/product-data/${route.params.id}`, {
       method: "GET",
     })
@@ -32,9 +33,18 @@ export default function ReviewScreen({ route }) {
       .catch((error) => {
         console.log(error);
       });
-
-    console.log("Getting and setting product data...");
+  }
+  useEffect(() => {
+    fetchData();
   }, []);
+
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    fetchData();
+    setRefreshing(false);
+  }, [refreshing]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.heading}>
@@ -44,6 +54,9 @@ export default function ReviewScreen({ route }) {
         style={{ marginBottom: 0, marginTop: 10 }}
         keyExtractor={(item) => item.id}
         data={reviewList}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         renderItem={({ item }) => (
           <ReviewCard
             name={item.name}

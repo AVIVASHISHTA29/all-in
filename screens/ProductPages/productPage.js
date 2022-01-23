@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import {
   Button,
   Image,
   Keyboard,
+  RefreshControl,
   ScrollView,
   StyleSheet,
   Text,
@@ -35,7 +36,11 @@ export default function ProductPage({ route, navigation }) {
   const [search, setSearch] = useState("");
   const [reviewList, setReviewList] = useState();
 
-  useEffect(() => {
+  const [sizeList, setSizeList] = useState(
+    route.params.productItem.size.split(",")
+  );
+
+  function getReviewData() {
     fetch(
       `${domain}/api/v1.0/user/product-data/${route.params.productItem.id}`,
       {
@@ -55,9 +60,18 @@ export default function ProductPage({ route, navigation }) {
       .catch((error) => {
         console.log(error);
       });
+  }
 
-    console.log("Getting and setting product data...");
+  useEffect(() => {
+    getReviewData();
   }, []);
+
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    getReviewData();
+    setRefreshing(false);
+  }, [refreshing]);
 
   return (
     <TouchableWithoutFeedback
@@ -65,7 +79,11 @@ export default function ProductPage({ route, navigation }) {
         Keyboard.dismiss();
       }}
     >
-      <ScrollView>
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <View style={styles.container}>
           <Text style={styles.productHeading}>
             {route.params.productItem.title
@@ -125,7 +143,7 @@ export default function ProductPage({ route, navigation }) {
               </Text>
             </View>
             <View style={styles.sizeView}>
-              <TouchableOpacity style={styles.btn}>
+              {/* <TouchableOpacity style={styles.btn}>
                 <Text style={styles.sizeText}>XS</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.btn}>
@@ -136,7 +154,12 @@ export default function ProductPage({ route, navigation }) {
               </TouchableOpacity>
               <TouchableOpacity style={styles.btn}>
                 <Text style={styles.sizeText}>XL</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
+              {sizeList.map((item) => (
+                <TouchableOpacity style={styles.btn}>
+                  <Text style={styles.sizeText}>{item}</Text>
+                </TouchableOpacity>
+              ))}
             </View>
           </View>
           <View
@@ -368,8 +391,7 @@ const styles = StyleSheet.create({
   sizeText: {
     fontFamily: "Roboto-Bold",
     fontSize: 16,
-    // width: 25,
-    // height: 25,
     textAlign: "center",
+    textTransform: "uppercase",
   },
 });

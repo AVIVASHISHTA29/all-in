@@ -28,8 +28,6 @@ const Provider = ({ children }) => {
         }
       })
       .then((json) => {
-        console.log("setting the products");
-        console.log(json);
         setAllProducts(json);
       })
       .catch((error) => {

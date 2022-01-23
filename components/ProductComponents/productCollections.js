@@ -33,8 +33,7 @@ export default function ProductCollection(props) {
   } = globalContext;
   const [flag, setFlag] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
-  console.log("my products");
-  console.log(allProducts);
+
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     fetch(`${domain}/api/v1.0/user/products`, {

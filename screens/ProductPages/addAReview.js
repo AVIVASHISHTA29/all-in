@@ -73,7 +73,15 @@ export default function AddAReview({ route }) {
       ];
     }
 
+    // var finalRating = newList.reduce(
+    //   (total, currentItem) => (total = total + parseInt(currentItem.rating)),
+    //   0
+    // );
+
+    // finalRating = finalRating / newList.length;
+
     let body = JSON.stringify({
+      // rating: finalRating,
       reviews: { data: newList },
     });
 
