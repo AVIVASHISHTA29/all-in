@@ -80,7 +80,7 @@ export default function LoginPage({ navigation, route, props }) {
         setUserObj(json[0]);
         setWishList(json[0].wish_list.products);
         setCartList(json[0].my_cart.products);
-        setOrderList(json[0].my_orders);
+        setOrderList(json[0].my_orders.products);
       })
       .catch((error) => {
         console.log(error);

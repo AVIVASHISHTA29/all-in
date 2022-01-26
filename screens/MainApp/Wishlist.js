@@ -66,25 +66,60 @@ const Wishlist = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.heading}>Your Wishlist</Text>
       <View style={{ flex: 1 }}>
-        {wishList.length > 0 ? (
-          <FlatList
-            nestedScrollEnabled
-            style={{ marginBottom: 20, flex: 1, marginTop: 10 }}
-            keyExtractor={(item) => item.id}
-            data={wishList}
-            refreshControl={
-              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }
-            renderItem={({ item }) => (
-              <ProductLongCard
-                id={item.id}
-                navigation={navigation}
-                deleteItem={deleteItemWish}
-                showDeleteButton={true}
-                showAddToCartButton={true}
+        {wishList ? (
+          wishList.length > 0 ? (
+            <FlatList
+              nestedScrollEnabled
+              style={{ marginBottom: 20, flex: 1, marginTop: 10 }}
+              keyExtractor={(item) => item.id}
+              data={wishList}
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+              }
+              renderItem={({ item }) => (
+                <ProductLongCard
+                  id={item.id}
+                  navigation={navigation}
+                  deleteItem={deleteItemWish}
+                  showDeleteButton={true}
+                  showAddToCartButton={true}
+                />
+              )}
+            />
+          ) : (
+            <TouchableOpacity
+              onPress={() => {
+                getWishList(setWishList, domain, userObj);
+              }}
+              style={{
+                textAlign: "center",
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                margin: 20,
+                marginTop: "auto",
+                marginBottom: "auto",
+              }}
+            >
+              <View style={{}}>
+                <Feather name="bookmark" size={48} color="black" />
+              </View>
+              <Text
+                style={[
+                  styles.subHeading,
+                  { marginTop: 20, color: "#000", textAlign: "center" },
+                ]}
+              >
+                Your Wishlist is Empty
+              </Text>
+              <AntDesign
+                name="reload1"
+                size={20}
+                color="black"
+                style={{ marginTop: 20 }}
               />
-            )}
-          />
+            </TouchableOpacity>
+          )
         ) : (
           <TouchableOpacity
             onPress={() => {

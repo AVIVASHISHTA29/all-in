@@ -46,6 +46,15 @@ export default function SignUp1({ navigation, route, props }) {
         first_name: firstName,
         last_name: lastName,
         password: password,
+        wish_list: {
+          products: [],
+        },
+        my_cart: {
+          products: [],
+        },
+        my_orders: {
+          products: [],
+        },
       });
 
       fetch(`${domain}/api/v1.0/user/create-user/`, {

@@ -2,7 +2,16 @@ import { useState } from "react";
 import { showMessage } from "react-native-flash-message";
 
 function AddToWishlist(item, wishList, setWishList, domain, email) {
-  if (wishList.indexOf(item) !== -1) {
+  var i,
+    len = wishList.length;
+  flag = false;
+  for (i = 0; i < len; i++) {
+    if (wishList[i].id == item.id) {
+      flag = true;
+    }
+  }
+
+  if (flag) {
     showMessage({
       message: "Item Already Added!",
       description: "This item already exists in your wish list!",

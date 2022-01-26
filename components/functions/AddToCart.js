@@ -1,7 +1,16 @@
 import { showMessage } from "react-native-flash-message";
 
 function AddToCart(item, cartList, setCartList, domain, email) {
-  if (cartList.indexOf(item) !== -1) {
+  var i,
+    len = cartList.length;
+  flag = false;
+  for (i = 0; i < len; i++) {
+    if (cartList[i].id == item.id) {
+      flag = true;
+    }
+  }
+
+  if (flag) {
     showMessage({
       message: "Item Already Added!",
       description: "This item already exists in your wish list!",
