@@ -11,9 +11,10 @@ import { myOrderList, myRecommendations } from "../../data/data.js";
 import ProductLongCard from "../../components/ProductComponents/productLongCard";
 import ProductSmallCard from "../../components/ProductComponents/productSmallCard";
 import { AntDesign } from "@expo/vector-icons";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Context } from "../../components/globalContext/globalContext.js";
 import { showMessage } from "react-native-flash-message";
+import getOrderList from "../../components/functions/DbFunctions/getOrderList.js";
 // import RazorpayCheckout from "react-native-razorpay";
 
 const SummaryPage = ({ route, navigation }) => {
@@ -24,6 +25,10 @@ const SummaryPage = ({ route, navigation }) => {
   const [finalTotal, setFinalTotal] = useState(
     taxes + parseInt(route.params.totalPrice)
   );
+
+  useEffect(() => {
+    getOrderList(setOrderList, domain, userObj);
+  }, []);
 
   function paymentProcess() {
     var options = {
@@ -40,45 +45,53 @@ const SummaryPage = ({ route, navigation }) => {
       },
       theme: { color: "#000" },
     };
-    if (cartList) {
-      let body = JSON.stringify({
+    let body;
+    if (cartList && orderList.length > 0) {
+      body = JSON.stringify({
         my_cart: { products: [] },
         my_orders: {
-          products: [...orderList, cartList],
+          products: [...orderList, ...cartList],
         },
       });
-      setCartList([]);
-      fetch(`${domain}/api/v1.0/user/user-data/${userObj.email}/`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
+    } else {
+      body = JSON.stringify({
+        my_cart: { products: [] },
+        my_orders: {
+          products: cartList,
         },
-        body: body,
-      })
-        .then((res) => {
-          if (res.ok) {
-            showMessage({
-              message: "Added To Your Cart",
-              description:
-                "This item was successfully added to your cart! Happy Shopping !",
-              type: "success",
-            });
-
-            return res.json();
-          } else {
-            console.log("User data coudn't be updated");
-            throw res.json();
-          }
-        })
-        .then((json) => {
-          // setUserObj(json);
-          // setToken(json.token);
-          // setIsLoggedIn(true);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      });
     }
+    setCartList([]);
+    fetch(`${domain}/api/v1.0/user/user-data/${userObj.email}/`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: body,
+    })
+      .then((res) => {
+        if (res.ok) {
+          showMessage({
+            message: "Added To Your Cart",
+            description:
+              "This item was successfully added to your cart! Happy Shopping !",
+            type: "success",
+          });
+
+          return res.json();
+        } else {
+          console.log("User data coudn't be updated");
+          throw res.json();
+        }
+      })
+      .then((json) => {
+        // setUserObj(json);
+        // setToken(json.token);
+        // setIsLoggedIn(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
     // RazorpayCheckout.open(options)
     //   .then((data) => {
